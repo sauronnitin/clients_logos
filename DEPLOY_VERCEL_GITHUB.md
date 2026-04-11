@@ -9,13 +9,14 @@ The Next.js app lives in **`aurora/`**. The Git repository root is this folder (
 
 ## 2. Push from this machine
 
-In a terminal (including Cursor’s terminal), from **this project root**:
+A local repo is already initialized with an initial commit. In a terminal (including Cursor’s), from **this project root**:
 
 ```powershell
 git remote add origin https://github.com/YOU/YOUR-REPO.git
-git branch -M main
 git push -u origin main
 ```
+
+(`main` is already the default branch name here.)
 
 If `origin` already exists, use `git remote set-url origin ...` instead.
 
