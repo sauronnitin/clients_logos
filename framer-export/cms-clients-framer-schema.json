@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$comment": "Target Framer CMS collection shape for Clients + integration marquee. Align your live Framer collection to these fields; source rows: cms-clients.csv (12 items).",
+  "collectionName": "Clients",
+  "itemCountFromExport": 12,
+  "recommendedFields": [
+    {
+      "framerFieldName": "Image",
+      "framerType": "Image",
+      "csvColumn": "Image",
+      "required": true,
+      "notes": "Logo asset; framerusercontent URLs from CSV are valid when re-uploaded or linked in Framer."
+    },
+    {
+      "framerFieldName": "Link",
+      "framerType": "Link",
+      "csvColumn": "link",
+      "required": true,
+      "notes": "External client URL; open in new tab in list item if desired."
+    },
+    {
+      "framerFieldName": "Title",
+      "framerType": "Plain Text",
+      "csvColumn": "Title name",
+      "required": true,
+      "notes": "Use for image alt text / accessibility; falls back to company if identical."
+    },
+    {
+      "framerFieldName": "Company",
+      "framerType": "Plain Text",
+      "csvColumn": "company",
+      "required": false,
+      "notes": "Optional if Title covers display name."
+    },
+    {
+      "framerFieldName": "Slug",
+      "framerType": "Slug",
+      "csvColumn": "slug",
+      "required": false,
+      "notes": "Useful for detail pages; not required for marquee only."
+    },
+    {
+      "framerFieldName": "Role",
+      "framerType": "Plain Text or Option",
+      "csvColumn": "role",
+      "required": false,
+      "notes": "Filter CMS List: Role equals Client to exclude non-clients later."
+    },
+    {
+      "framerFieldName": "Order",
+      "framerType": "Number",
+      "csvColumn": null,
+      "required": false,
+      "notes": "Optional sort order for marquee (ascending) when alphabetical is wrong."
+    },
+    {
+      "framerFieldName": "Show in marquee",
+      "framerType": "Boolean",
+      "csvColumn": null,
+      "required": false,
+      "notes": "If false, filter list so logo is hidden from ticker without deleting the client."
+    }
+  ],
+  "auditChecklist": [
+    "Every CMS item has Image populated (no empty slots in list preview).",
+    "Link field opens the correct URL in preview.",
+    "Title (or Company) is set for each item for alt text.",
+    "CMS List on canvas uses Collection: Clients and consistent sort (Title or Order)."
+  ]
+}

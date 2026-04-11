@@ -1,0 +1,24 @@
+# Aurora (Next.js)
+aurora/node_modules/
+aurora/.next/
+aurora/out/
+aurora/.turbo/
+aurora/*.tsbuildinfo
+aurora/npm-debug.log*
+aurora/yarn-error.log*
+aurora/pnpm-debug.log*
+
+# Env
+.env
+.env.*
+!.env.example
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.pem
+
+# Local / secrets (do not push)
+.claude/settings.local.json
+.cursor/
+.mcp.json

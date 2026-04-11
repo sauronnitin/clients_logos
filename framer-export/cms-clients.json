@@ -1,0 +1,154 @@
+{
+  "exportedAt": "2026-04-10T00:00:00.000Z",
+  "source": "Framer CMS (Unframer MCP)",
+  "framerCsvImport": {
+    "slugColumn": "slug",
+    "critical": "Framer often defaults each column to New Field — you must open the dropdown per column and pick the EXISTING field. The orange error means the built-in Image field is still empty: change the Image column target from New Field to Image.",
+    "files": {
+      "cms-clients.csv": "Full row data + UTF-8 BOM; headers use Title name (no parentheses).",
+      "cms-clients-minimal.csv": "Only slug + content fields — fewer columns to map."
+    },
+    "columns": [
+      { "csv": "id", "mapsTo": "New field (Plain Text)" },
+      { "csv": "slug", "mapsTo": "Slug field OR top bar slug picker — not both creating duplicate slug" },
+      { "csv": "draft", "mapsTo": "New field (Toggle)" },
+      { "csv": "Title name", "mapsTo": "Title (name) — pick existing field, not New Field" },
+      { "csv": "company", "mapsTo": "Company — existing Plain Text" },
+      { "csv": "role", "mapsTo": "Role — existing Plain Text" },
+      { "csv": "Image", "mapsTo": "Image — existing Image field (required)" },
+      { "csv": "link", "mapsTo": "New field (Link)" }
+    ],
+    "notes": "Quote stays Keep empty. Header names match Framer fields so auto-map should bind Title (name) and Image correctly."
+  },
+  "collection": {
+    "id": "BVI_bppgh",
+    "name": "Clients",
+    "fields": [
+      { "id": "vuRJvCxlD", "name": "Title", "type": "string" },
+      { "id": "LPQ0pdW55", "name": "Logo", "type": "image" },
+      { "id": "qVSOIh2BA", "name": "Link", "type": "link" }
+    ]
+  },
+  "items": [
+    {
+      "id": "Hl2Blo9pz",
+      "slug": "tokyo-keiki",
+      "draft": false,
+      "title": "Tokyo Keiki",
+      "company": "Tokyo Keiki",
+      "role": "Client",
+      "image": "https://framerusercontent.com/images/7dk3jHvxkpLS9sZYob9BCvUbDo.png",
+      "link": "https://www.tokyokeiki.jp/e/products/detail.html?pdid=289"
+    },
+    {
+      "id": "PVDP25tRR",
+      "slug": "hindware",
+      "draft": false,
+      "title": "Hindware",
+      "company": "Hindware",
+      "role": "Client",
+      "image": "https://framerusercontent.com/images/gvx92v1JyT8PK54RwCIBzL4Llhw.png",
+      "link": "https://hindware.com/"
+    },
+    {
+      "id": "nSDoFnkRU",
+      "slug": "bajaj-electricals",
+      "draft": false,
+      "title": "Bajaj Electricals",
+      "company": "Bajaj Electricals",
+      "role": "Client",
+      "image": "https://framerusercontent.com/images/4cpxhqkZHmZXp0QsbmPrSAt8hk.png",
+      "link": "https://www.bajajelectricals.com/"
+    },
+    {
+      "id": "phTUvkrBE",
+      "slug": "wego",
+      "draft": false,
+      "title": "Weigao",
+      "company": "Weigao",
+      "role": "Client",
+      "image": "https://framerusercontent.com/images/DIkXOBFKkJtsfT7ClZMybQhuZc.png",
+      "link": "https://www.wegomedical.com/"
+    },
+    {
+      "id": "mZwMbTDTN",
+      "slug": "hero-electronix",
+      "draft": false,
+      "title": "Hero Electronix",
+      "company": "Hero Electronix",
+      "role": "Client",
+      "image": "https://framerusercontent.com/images/oxJsc7qUIxdH6d7XJbOvQQEao.png",
+      "link": "https://www.heroelectronix.com/"
+    },
+    {
+      "id": "uYCXhwNVX",
+      "slug": "tmmc",
+      "draft": false,
+      "title": "The Marine Mammal Center",
+      "company": "The Marine Mammal Center",
+      "role": "Client",
+      "image": "https://framerusercontent.com/images/WUlSFyYs2jhnQw98Alv9VHTpCa8.png",
+      "link": "https://www.marinemammalcenter.org/"
+    },
+    {
+      "id": "UugfELQE8",
+      "slug": "thermax",
+      "draft": false,
+      "title": "Thermax",
+      "company": "Thermax",
+      "role": "Client",
+      "image": "https://framerusercontent.com/images/SWyMI7WvbxVrjGoeJlhFBXszCRE.svg",
+      "link": "https://www.thermaxglobal.com/"
+    },
+    {
+      "id": "x8xFuIYJ2",
+      "slug": "btg",
+      "draft": false,
+      "title": "Blue Tees Golf",
+      "company": "Blue Tees Golf",
+      "role": "Client",
+      "image": "https://framerusercontent.com/images/W9ONkFM8qT4hkPNvXrBHBbvL6o.svg",
+      "link": "https://blueteesgolf.com/"
+    },
+    {
+      "id": "gd9E_uZGw",
+      "slug": "morphy-richards",
+      "draft": false,
+      "title": "Morphy Richards",
+      "company": "Morphy Richards",
+      "role": "Client",
+      "image": "https://framerusercontent.com/images/exFWz59UU8ob2PBB1VwdTp9E.png",
+      "link": "https://morphyrichards.com/"
+    },
+    {
+      "id": "TNOzWT0jp",
+      "slug": "ambee",
+      "draft": false,
+      "title": "Ambee",
+      "company": "Ambee",
+      "role": "Client",
+      "image": "https://framerusercontent.com/images/ZCDEDMalHWGTG00XIRQeDzaT0qM.png",
+      "link": "https://www.getambee.com/"
+    },
+    {
+      "id": "LjQIc3OJN",
+      "slug": "somfy",
+      "draft": false,
+      "title": "Somfy",
+      "company": "Somfy",
+      "role": "Client",
+      "image": "https://framerusercontent.com/images/6R7WxLE1QMLfdXwWz5spWTxHsQ.png",
+      "link": "https://www.somfysystems.com/en-us/"
+    },
+    {
+      "id": "R6baVOJjp",
+      "slug": "upright-education",
+      "draft": false,
+      "title": "Upright Education",
+      "company": "Upright Education",
+      "role": "Client",
+      "image": "https://framerusercontent.com/images/JYZjJASzxRCyFB67yqXu2xRoCqw.png",
+      "link": "https://huggl.framer.website/"
+    }
+  ]
+}

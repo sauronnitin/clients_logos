@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Concept — Hero right: stacked thumbnails (not Framer)</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, Segoe UI, sans-serif;
+      background-color: #f5f5f5;
+      background-image:
+        linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
+      background-size: 24px 24px;
+      color: #2b2b2b;
+    }
+    .note {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 12px 24px;
+      font-size: 12px;
+      color: #666;
+      border-bottom: 1px solid #ddd;
+    }
+    .hero {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 72px 44px 48px;
+      display: grid;
+      grid-template-columns: 1fr minmax(260px, 340px);
+      gap: 40px;
+      align-items: start;
+    }
+    @media (max-width: 800px) {
+      .hero { grid-template-columns: 1fr; }
+      .deck-wrap { min-height: 280px; margin-top: 8px; }
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 12px;
+      background: #fff;
+      border-radius: 999px;
+      border: 1px solid #e0e0e0;
+      margin-bottom: 20px;
+    }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: #21b30b; }
+    h1 {
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin: 0 0 16px;
+      font-weight: 600;
+    }
+    p.lead {
+      margin: 0 0 24px;
+      font-size: 15px;
+      line-height: 1.5;
+      color: #444;
+      max-width: 390px;
+    }
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 18px;
+      background: #000;
+      color: #fff;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .cta-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #888, #ccc);
+    }
+
+    /* Right column: stacked deck (conceptual) */
+    .deck-wrap {
+      position: relative;
+      height: 320px;
+      margin-top: 8px;
+    }
+    .card {
+      position: absolute;
+      width: 200px;
+      height: 128px;
+      border-radius: 12px;
+      border: 1px solid rgba(0,0,0,0.08);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+      overflow: hidden;
+      left: 50%;
+      transform-origin: center bottom;
+    }
+    .card .fill {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.9);
+    }
+    .c1 { transform: translate(-50%, 0) translateX(-8px) rotate(-8deg); z-index: 4; }
+    .c1 .fill { background: linear-gradient(145deg, #0d9488, #14b8a6); }
+    .c2 { transform: translate(-50%, 28px) translateX(12px) rotate(5deg); z-index: 3; }
+    .c2 .fill { background: linear-gradient(145deg, #1e3a5f, #3b82f6); }
+    .c3 { transform: translate(-50%, 56px) translateX(-18px) rotate(-4deg); z-index: 2; }
+    .c3 .fill { background: linear-gradient(145deg, #1f2937, #4b5563); }
+    .c4 { transform: translate(-50%, 88px) translateX(6px) rotate(6deg); z-index: 1; }
+    .c4 .fill { background: linear-gradient(145deg, #7c2d12, #ea580c); }
+
+    .caption {
+      text-align: center;
+      margin-top: 12px;
+      font-size: 11px;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <p class="note">
+    <strong>Concept only</strong> — rough HTML/CSS to suggest “smaller overlapping thumbnails in the hero right column.”
+    Framer scroll, exact sizes, fonts, and assets will differ. Open this file in a browser (double-click or Live Server).
+  </p>
+
+  <section class="hero">
+    <div class="left">
+      <div class="badge"><span class="dot"></span> Available for new projects</div>
+      <h1>Designing at the edge of craft and code.</h1>
+      <p class="lead">
+        Senior Product &amp; UX Designer with a builder&apos;s mindset — placeholder body copy for layout balance.
+      </p>
+      <div class="cta">
+        <span class="cta-avatar"></span>
+        Book a call with me
+      </div>
+    </div>
+
+    <div class="right">
+      <div class="deck-wrap" aria-hidden="true">
+        <div class="card c1"><div class="fill">Project 1</div></div>
+        <div class="card c2"><div class="fill">Project 2</div></div>
+        <div class="card c3"><div class="fill">Project 3</div></div>
+        <div class="card c4"><div class="fill">Project 4</div></div>
+      </div>
+      <p class="caption">Stacked deck · higher z-index on front card · slight rotations</p>
+    </div>
+  </section>
+</body>
+</html>
