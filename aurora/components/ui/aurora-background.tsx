@@ -49,6 +49,10 @@ export function AuroraBackground({
             [--aurora:repeating-linear-gradient(100deg,var(--blue-500)_10%,var(--indigo-300)_15%,var(--blue-300)_20%,var(--violet-200)_25%,var(--blue-400)_30%)]
             `
 
+  const radialMask =
+    showRadialGradient &&
+    `[mask-image:radial-gradient(ellipse_at_100%_0%,black_10%,var(--transparent)_70%)]`
+
   return (
     <div
       className={cn(
@@ -68,48 +72,68 @@ export function AuroraBackground({
         />
       ) : null}
       <div className="pointer-events-none absolute inset-0 z-[1] origin-center isolate scale-x-[-1] overflow-hidden">
-        <div
-          className={cn(
-            gradientVars,
-            "[background-image:var(--white-gradient),var(--aurora)]",
-            !embedLightPipeline && "dark:[background-image:var(--dark-gradient),var(--aurora)]",
-            "[background-size:300%,_200%]",
-            "[background-position:50%_50%,50%_50%]",
-            "pointer-events-none absolute -inset-[10px] blur-[32px] filter will-change-transform",
-            embedLightPipeline
-              ? "opacity-55"
-              : "opacity-65 invert dark:invert-0",
-            !useSoftAnimatedLayer &&
-              `
+        {embedLightPipeline ? (
+          /*
+           * Framer iframe (WebKit): `background-position` animation on ::after under the same node as
+           * `filter: blur()` often does not run. Split blur (static) vs motion (real div + animate-aurora-embed).
+           */
+          <div
+            className={cn(
+              "pointer-events-none absolute inset-0",
+              gradientVars
+            )}
+          >
+            <div
+              className={cn(
+                "pointer-events-none absolute -inset-[10px] opacity-55 blur-[32px] filter",
+                "[background-image:var(--white-gradient),var(--aurora)]",
+                "[background-size:300%,_200%]",
+                "[background-position:50%_50%,50%_50%]",
+                radialMask
+              )}
+            />
+            <div
+              className={cn(
+                "pointer-events-none absolute inset-0 opacity-45 mix-blend-normal animate-aurora-embed will-change-[background-position]",
+                "[background-image:var(--white-gradient),var(--aurora)]",
+                "[background-size:200%,_100%]",
+                "[background-attachment:scroll]",
+                radialMask
+              )}
+            />
+          </div>
+        ) : (
+          <div
+            className={cn(
+              gradientVars,
+              "[background-image:var(--white-gradient),var(--aurora)]",
+              "dark:[background-image:var(--dark-gradient),var(--aurora)]",
+              "[background-size:300%,_200%]",
+              "[background-position:50%_50%,50%_50%]",
+              "pointer-events-none absolute -inset-[10px] blur-[32px] filter will-change-transform",
+              "opacity-65 invert dark:invert-0",
+              !useSoftAnimatedLayer &&
+                `
             after:absolute after:inset-0 after:animate-aurora after:mix-blend-difference after:opacity-90 after:content-[""]
             after:[background-image:var(--white-gradient),var(--aurora)]
             after:[background-size:200%,_100%]
             after:dark:[background-image:var(--dark-gradient),var(--aurora)]
             `,
-            !useSoftAnimatedLayer && afterAttachment,
-            useSoftAnimatedLayer &&
-              embedLightPipeline &&
-              `
-            after:absolute after:inset-0 after:animate-aurora-embed after:mix-blend-normal after:content-[""]
-            after:[background-image:var(--white-gradient),var(--aurora)]
-            after:[background-size:200%,_100%]
-            `,
-            useSoftAnimatedLayer &&
-              !embedLightPipeline &&
-              `
+              !useSoftAnimatedLayer && afterAttachment,
+              useSoftAnimatedLayer &&
+                `
             after:absolute after:inset-0 after:animate-aurora after:mix-blend-normal after:content-[""]
             after:[background-image:var(--white-gradient),var(--aurora)]
             after:[background-size:200%,_100%]
             after:dark:[background-image:var(--dark-gradient),var(--aurora)]
             `,
-            embedLightPipeline && "after:opacity-45",
-            !embedLightPipeline && softBlend && "after:opacity-55",
-            !embedLightPipeline && !softBlend && "after:opacity-90",
-            useSoftAnimatedLayer && afterAttachment,
-            showRadialGradient &&
-              `[mask-image:radial-gradient(ellipse_at_100%_0%,black_10%,var(--transparent)_70%)]`
-          )}
-        />
+              softBlend && "after:opacity-55",
+              !softBlend && "after:opacity-90",
+              useSoftAnimatedLayer && afterAttachment,
+              radialMask
+            )}
+          />
+        )}
       </div>
       <div className="relative z-10 isolate mix-blend-normal flex w-full flex-1 flex-col items-center justify-center">
         {children}
