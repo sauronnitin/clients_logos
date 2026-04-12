@@ -9,26 +9,47 @@ Use this when you want the **animated aurora** behind a Framer section (no hero 
 **Example (GitHub Pages, repo `clients_logos`):**  
 `https://sauronnitin.github.io/clients_logos/embed/aurora`
 
-### Steps in Framer
+### Why Framer buttons stop working (important)
 
-1. Build your **section** (headline, logos, etc.) in Framer as usual.
-2. Insert **Embed** (Utilities → **Embed**).
-3. Paste the full **https** URL above (swap user/repo if yours differ).
-4. In the **Layers** panel, drag the Embed **below** your content so the content sits **on top**, or pin the Embed **absolute** with **Fill** so it covers the section and keep content in a higher **z-index** layer.
-5. Set the Embed frame to the **same size** as the section (width **100%**, height = section height — e.g. **720–900px**). The aurora uses `100vh` inside the iframe, so it fills whatever height you give the embed.
-6. **Layer order:** An iframe is a **rectangle of pixels**, not a Photoshop mask. Anything **behind** the Embed in Framer is **hidden** unless the iframe’s page leaves areas transparent. The deployed `/embed/aurora` route uses a **transparent** `html`/`body` and **no solid zinc fill** so Framer content **below** the Embed can show through where the glow is thin or masked—but the blurred gradient still covers a lot of the area. For **crisp** logos or a marquee, place those layers **above** the Embed (higher in the layer list), not underneath.
-7. Publish and test on the live Framer site.
+`pointer-events: none` **inside** the Next.js page only changes hit-testing **inside the iframe**. It does **not** make the iframe transparent to clicks on the **Framer** page. The `<iframe>` node Framer injects still sits on top of your stack and **captures every click** in its box until **Framer** applies `pointer-events: none` to that layer (or you use a Code component that sets it on the iframe).
 
-### If “Book a call” (or any Framer button) does not click
+**You want three outcomes at once:** aurora visible, Framer text/buttons clickable, correct stacking. Pick **one** of the approaches below.
 
-The **Embed** is still a full rectangle in the layer stack. After deploy, `/embed/aurora` uses **`pointer-events: none`** on the iframe document so clicks pass through to Framer content **on top** of the embed. If a button still ignores clicks:
+---
 
-- In **Layers**, move the Embed **below** the CTA and text (lower in the list = farther back).
-- Or select the Embed → **Effects** (or style overrides) → set **pointer events** to **None** if Framer exposes it.
+### Option A — Native Embed + Framer “Pointer events” (quickest)
 
-### Without an iframe (Code / native)
+1. Build the section (headline, CTA, etc.) as usual.
+2. Add **Embed** (Utilities → **Embed**) and paste your full **https** aurora URL.
+3. Size the embed to the section (e.g. width **100%**, height **720–900px**). Inside the iframe, aurora uses `100vh` relative to the iframe height.
+4. In **Layers**, put the Embed **behind** copy and buttons (lower in the list than the things you need to click).
+5. **Critical:** Select the **Embed** layer → right panel **Styles** → **+** → add **Pointer events** → set to **None** so clicks reach Framer layers above.  
+   Framer docs: [Disable pointer events](https://www.framer.com/help/articles/disable-pointer-events/)
+6. Publish and test on the **live** site (preview can differ).
 
-- Copy the plain-CSS reference from [`aurora-framer-reference.tsx`](aurora-framer-reference.tsx) into a **Framer Code** component, or rebuild the look with **gradients + blur** on a full-bleed frame (no Tailwind in Code).
+---
+
+### Option B — Code component iframe (guaranteed pass-through)
+
+If you do not see Pointer events on the Embed, or it still blocks clicks:
+
+1. In Framer: **Assets → Code** → create a component from [`AuroraIframePassThrough.tsx`](AuroraIframePassThrough.tsx) (copy/paste the file).
+2. On canvas, size it like a full-bleed background and place it **behind** hero content in **Layers**.
+3. Set **Aurora URL** in the properties panel to your deployed `/embed/aurora` URL.
+
+The component sets `pointer-events: none` on both the wrapper and the **iframe** in Framer’s DOM, which is what actually lets “Book a call” and other native controls work.
+
+---
+
+### Option C — No iframe (true background, best UX)
+
+For a decorative background with **zero** iframe quirks, use the plain-CSS twin in [`aurora-framer-reference.tsx`](aurora-framer-reference.tsx) as a **Framer Code** component (or rebuild the same layers with gradients + blur on the canvas). Same visual language as the Next app; all hero UI stays 100% native Framer.
+
+---
+
+### Layer order reminder
+
+An iframe is a **rectangle of pixels**. The hosted `/embed/aurora` page uses a **transparent** `html`/`body` and no solid base so, visually, Framer layers **behind** the iframe can show through in softer areas—but **clicks** still require **Pointer events: None** (Option A) or **Option B/C** above. Put logos, marquees, and CTAs **above** the aurora layer in the layer list.
 
 ---
 
