@@ -28,7 +28,7 @@ export function AuroraBackground({
       )}
       {...props}
     >
-      <div className="absolute inset-0 origin-center scale-x-[-1] overflow-hidden">
+      <div className="pointer-events-none absolute inset-0 z-0 origin-center isolate scale-x-[-1] overflow-hidden">
         <div
           className={cn(
             `
@@ -52,7 +52,9 @@ export function AuroraBackground({
           )}
         />
       </div>
-      {children}
+      <div className="relative z-10 isolate mix-blend-normal flex w-full flex-1 flex-col items-center justify-center">
+        {children}
+      </div>
     </div>
   )
 }

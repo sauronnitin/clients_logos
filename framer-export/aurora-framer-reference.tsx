@@ -7,6 +7,9 @@
  * `aurora/app/globals.css` (:root blues / zinc) when aligning with the Next app.
  *
  * This file is not imported by the Next.js `aurora` app.
+ *
+ * Stacking: pass hero UI as `children`, or keep aurora behind separate Framer layers
+ * in the Layers panel — `mix-blend-mode` must not sit above your text in paint order.
  */
 
 import * as React from "react"
@@ -33,6 +36,8 @@ const css = `
   align-items: center;
   justify-content: center;
   color: #020617;
+  /* Keep mix-blend/difference from compositing over sibling UI */
+  isolation: isolate;
 }
 
 /* Solid fill — matches Next bg-zinc-50 / dark:bg-zinc-900 */
@@ -78,6 +83,7 @@ const css = `
   );
   position: absolute;
   inset: 0;
+  z-index: 0;
   overflow: hidden;
   pointer-events: none;
   transform: scaleX(-1);
@@ -131,7 +137,16 @@ const css = `
 
 .aurora-framer-content {
   position: relative;
-  z-index: 1;
+  z-index: 2;
+  isolation: isolate;
+  mix-blend-mode: normal;
+  /* Sit above the glow; Framer text/buttons passed as children stay crisp */
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 `
 

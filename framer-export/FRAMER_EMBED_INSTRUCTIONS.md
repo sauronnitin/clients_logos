@@ -47,6 +47,8 @@ For a decorative background with **zero** iframe quirks, use the plain-CSS twin 
 
 The component defaults to **`transparentBase`** so your Framer section background shows through (no flat white card). Pass **`transparentBase={false}`** if you want the same zinc-50 / dark zinc fill as the Next site. After pulling updates, **re-paste** the file into Framer so CSS changes apply.
 
+**Stacking (text looks washed out by the glow):** The aurora uses `mix-blend-mode`. Either (1) place your headline and body **inside** the Code component as **children** (so they render in `.aurora-framer-content`, above the glow), or (2) if they are **separate** Framer layers, put those layers **above** the aurora in the **Layers** panel (higher in the list = drawn on top). Pointer-events **None** on the aurora layer does not change paint order.
+
 ---
 
 ### Layer order reminder
