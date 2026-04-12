@@ -60,6 +60,8 @@ That turns off `mix-blend-difference` on the moving layer inside the iframe (sli
 
 The hosted `/embed/aurora` route paints a **zinc-50 plate inside the iframe** and uses a **light-only blend path**: no `filter: invert` and no `mix-blend-difference` on the animated layer. The main site look relies on invert + high-contrast stripes; that same math reads as **black rays** in a small iframe on zinc. Redeploy after pulling the latest `aurora` app.
 
+The embed **does not** use the main site’s tight **top-right radial mask** — that mask hid almost everything on a full-bleed Framer hero (especially on the left). The iframe uses a **full-frame** wash so blue/lavender blurs read across the whole embed area.
+
 #### Framer Embed only offers Fixed / Relative height (no Fill / Auto)
 
 Set a **fixed height in px** that matches your hero frame (often **720–900**; tweak until the glow is not clipped). **Width** can be **100%** or full bleed. Position the embed **inside** the hero section; avoid full-viewport **fixed** unless you also raise `z-index` on the text stack (see `AURORA_HERO_STACKING_PLAN.md`).

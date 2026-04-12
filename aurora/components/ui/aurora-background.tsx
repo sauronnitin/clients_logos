@@ -40,8 +40,8 @@ export function AuroraBackground({
 
   const gradientVars = embedLightPipeline
     ? `
-            [--white-gradient:repeating-linear-gradient(100deg,rgba(255,255,255,0.2)_0%,rgba(255,255,255,0.2)_7%,transparent_10%,transparent_12%,rgba(255,255,255,0.2)_16%)]
-            [--aurora:repeating-linear-gradient(100deg,var(--blue-500)_10%,var(--indigo-300)_15%,var(--blue-300)_20%,var(--violet-200)_25%,var(--blue-400)_30%)]
+            [--white-gradient:repeating-linear-gradient(100deg,rgba(255,255,255,0.55)_0%,rgba(255,255,255,0.55)_8%,transparent_11%,transparent_14%,rgba(255,255,255,0.4)_18%)]
+            [--aurora:repeating-linear-gradient(100deg,var(--blue-500)_8%,var(--indigo-300)_13%,var(--blue-300)_20%,var(--violet-200)_26%,var(--blue-400)_32%)]
             `
     : `
             [--white-gradient:repeating-linear-gradient(100deg,var(--white)_0%,var(--white)_7%,var(--transparent)_10%,var(--transparent)_12%,var(--white)_16%)]
@@ -49,7 +49,12 @@ export function AuroraBackground({
             [--aurora:repeating-linear-gradient(100deg,var(--blue-500)_10%,var(--indigo-300)_15%,var(--blue-300)_20%,var(--violet-200)_25%,var(--blue-400)_30%)]
             `
 
+  /**
+   * Tight top-right radial (main site) wipes most of the iframe on a full-width hero — copy side reads “empty”.
+   * Embed pipeline skips it so blue/lavender washes fill the frame; main / demo keep the vignette.
+   */
   const radialMask =
+    !embedLightPipeline &&
     showRadialGradient &&
     `[mask-image:radial-gradient(ellipse_at_100%_0%,black_10%,var(--transparent)_70%)]`
 
@@ -85,20 +90,18 @@ export function AuroraBackground({
           >
             <div
               className={cn(
-                "pointer-events-none absolute -inset-[10px] opacity-55 blur-[32px] filter",
+                "pointer-events-none absolute -inset-[10px] opacity-[0.78] blur-[40px] filter",
                 "[background-image:var(--white-gradient),var(--aurora)]",
                 "[background-size:300%,_200%]",
-                "[background-position:50%_50%,50%_50%]",
-                radialMask
+                "[background-position:50%_50%,50%_50%]"
               )}
             />
             <div
               className={cn(
-                "pointer-events-none absolute inset-0 opacity-45 mix-blend-normal animate-aurora-embed will-change-[background-position]",
+                "pointer-events-none absolute inset-0 opacity-[0.62] mix-blend-normal animate-aurora-embed blur-md will-change-[background-position]",
                 "[background-image:var(--white-gradient),var(--aurora)]",
                 "[background-size:200%,_100%]",
-                "[background-attachment:scroll]",
-                radialMask
+                "[background-attachment:scroll]"
               )}
             />
           </div>

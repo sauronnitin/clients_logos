@@ -49,7 +49,7 @@
     /* Aurora background — matches Tailwind default palette as CSS variables */
     --animate-aurora: aurora 60s linear infinite;
     /* Slightly faster in /embed/aurora so motion reads in a small iframe (main site keeps 60s). */
-    --animate-aurora-embed: aurora 42s linear infinite;
+    --animate-aurora-embed: aurora 32s linear infinite;
     /* Integration hero — infinite marquee rows */
     --animate-integration-scroll-left: integration-scroll-left 30s linear infinite;
     --animate-integration-scroll-right: integration-scroll-right 30s linear infinite;
