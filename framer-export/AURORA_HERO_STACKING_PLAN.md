@@ -2,6 +2,10 @@
 
 **Goal:** “Available for new projects,” headline, body, client-logo marquee, and CTAs are **visually on top** of the aurora; aurora reads as **background only**; **Book a call** (and other controls) stay **clickable**.
 
+**Execution — Framer access**
+
+You have **access to Framer** and should perform the **necessary actions there** for this plan: layer order, **Position** (fixed vs absolute vs in-flow), **z-index**, **Pointer events**, embed dimensions, and **per-breakpoint** layout. Treat the published site + Framer’s responsive preview as the source of truth; repo changes (URLs, `?soft=1`, Code components) only support what you configure on the canvas.
+
 **Context you confirmed**
 
 - Embed URL: hosted `/embed/aurora` (optionally `?soft=1`).
@@ -16,6 +20,21 @@
 | [MDN — `position: fixed`](https://developer.mozilla.org/en-US/docs/Web/CSS/position#fixed) | Fixed is removed from normal flow; positioned vs **viewport** (or containing block). |
 | [MDN — Stacking context](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_positioned_layout/Understanding_z-order/Stacking_context) | `fixed`, `z-index`, `transform`, and `isolation` create contexts that change who paints on top. |
 | Repo: [`FRAMER_EMBED_INSTRUCTIONS.md`](./FRAMER_EMBED_INSTRUCTIONS.md) | Embed URL, `?soft=1`, Pointer events, Code iframe option. |
+| [Framer Academy — Creating breakpoints](https://www.framer.com/academy/lessons/creating-breakpoints) | Per-viewport stacks, constraints, and embed sizing when the hero reflows. |
+
+---
+
+## Responsive validation (after every meaningful change)
+
+Aurora + hero must stay **correct at each breakpoint** you ship (e.g. Desktop / Tablet / Phone — use **your** project presets in Framer). Stacking that works on Desktop can break on narrow widths if the embed stays **fixed** full-viewport while the hero reflows.
+
+| Step | Action | Pass |
+|------|--------|------|
+| R1 | In Framer, switch **breakpoints** (top bar / viewport controls) and inspect **Layers** order on **each** size if stacks differ per variant. | Text + marquee + CTAs remain **above** aurora at every breakpoint. |
+| R2 | Adjust **embed height**, **position**, or **constraints** per breakpoint if the hero frame height or width changes (avoid fixed full-screen covering reflowed content). | No accidental overlap; aurora still fills the hero background where intended. |
+| R3 | Publish and open the **live** URL; use DevTools device mode or a phone. | Legibility, tap targets, and stack order match intent; no unintended horizontal scroll or clipped hero. |
+
+**References:** [Framer Academy — Creating breakpoints](https://www.framer.com/academy/lessons/creating-breakpoints) · [MDN — Responsive design](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Responsive_Design) (viewport / overflow concepts).
 
 ---
 
@@ -26,8 +45,9 @@
 | A1 | On **live** site (not only canvas), open DevTools → **Inspect** the iframe and the text wrapper. Note computed `position` and `z-index` on both. | You can see whether fixed + z-index explains overlap. |
 | A2 | Temporarily set Embed to **not fixed** (e.g. **Absolute** with **Fill** to the **hero frame only**, or stretch inside hero section — not full viewport). Republish. | Copy + marquee look **sharp**; aurora still visible **behind** them. |
 | A3 | If A2 fixes it: keep Embed **inside** the same hero **Section** as text; avoid spanning the whole site with fixed unless nav is the only thing that should sit above it. | Hero-only background; no aurora over footer/other sections unless intended. |
+| A4 | Repeat **R1–R3** after A2/A3. | Design remains **responsive** at your breakpoints; no regressions on tablet/phone. |
 
-**Validation:** Headline/badge/body/marquee are crisp; aurora visibly **behind**; Book button still works (if Embed has Pointer events **None** or [`AuroraIframePassThrough.tsx`](./AuroraIframePassThrough.tsx)).
+**Validation:** Headline/badge/body/marquee are crisp; aurora visibly **behind**; Book button still works (if Embed has Pointer events **None** or [`AuroraIframePassThrough.tsx`](./AuroraIframePassThrough.tsx)); **responsive checks pass**.
 
 ---
 
@@ -41,7 +61,7 @@
 
 **References:** [MDN stacking context](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_positioned_layout/Understanding_z-order/Stacking_context).
 
-**Validation:** Same as Phase A; marquee logos sharp; no haze or dark blobs **on** letterforms.
+**Validation:** Same as Phase A; marquee logos sharp; no haze or dark blobs **on** letterforms; run **R1–R3** if z-index or overflow changed per breakpoint.
 
 ---
 
@@ -83,6 +103,7 @@
 - [ ] Aurora reads as **background** (visible but not obscuring UI).
 - [ ] **Book a call** and other hero links work (pointer strategy unchanged).
 - [ ] Behavior matches on **published** site (Framer preview can differ).
+- [ ] **Responsive:** Stacking, legibility, and embed sizing verified at **each project breakpoint** (Desktop / Tablet / Phone or your presets); live URL checked at mobile width.
 - [ ] Document which combination worked (fixed vs absolute, z-index values, `?soft=1` yes/no) for your future self and the 21st.dev swap.
 
 ---
