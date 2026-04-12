@@ -39,9 +39,9 @@ export function AuroraBackground({
             dark:[background-image:var(--dark-gradient),var(--aurora)]
             [background-size:300%,_200%]
             [background-position:50%_50%,50%_50%]
-            pointer-events-none absolute -inset-[10px] opacity-50 blur-[10px] invert filter will-change-transform
+            pointer-events-none absolute -inset-[10px] opacity-65 blur-[32px] invert filter will-change-transform
             dark:invert-0
-            after:absolute after:inset-0 after:animate-aurora after:mix-blend-difference after:content-[""]
+            after:absolute after:inset-0 after:animate-aurora after:mix-blend-difference after:opacity-90 after:content-[""]
             after:[background-attachment:fixed]
             after:[background-image:var(--white-gradient),var(--aurora)]
             after:[background-size:200%,_100%]

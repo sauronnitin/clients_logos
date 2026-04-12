@@ -32,13 +32,22 @@ const css = `
   min-height: 100vh;
   align-items: center;
   justify-content: center;
-  background: #fafafa;
   color: #020617;
 }
 
-.dark .aurora-framer-root {
+/* Solid fill — matches Next bg-zinc-50 / dark:bg-zinc-900 */
+.aurora-framer-root.aurora-framer-root--solid {
+  background: #fafafa;
+}
+
+.dark .aurora-framer-root.aurora-framer-root--solid {
   background: #18181b;
   color: #f8fafc;
+}
+
+/* Default for Framer: no fill so the page/section background shows (not flat white) */
+.aurora-framer-root.aurora-framer-root--transparent {
+  background: transparent;
 }
 
 .aurora-framer-backdrop {
@@ -58,13 +67,14 @@ const css = `
     var(--transparent) 12%,
     var(--black) 16%
   );
+  /* Slightly wider color stops = softer bands (closer to blurred glow) */
   --aurora: repeating-linear-gradient(
     100deg,
-    var(--blue-500) 10%,
-    var(--indigo-300) 15%,
-    var(--blue-300) 20%,
-    var(--violet-200) 25%,
-    var(--blue-400) 30%
+    var(--blue-500) 8%,
+    var(--indigo-300) 14%,
+    var(--blue-300) 22%,
+    var(--violet-200) 30%,
+    var(--blue-400) 36%
   );
   position: absolute;
   inset: 0;
@@ -77,35 +87,46 @@ const css = `
 .aurora-framer-base {
   position: absolute;
   inset: -10px;
-  opacity: 0.5;
-  filter: blur(10px) invert(1);
+  /* Stronger base wash + heavier blur = less “candy stripe”, more glow */
+  opacity: 0.65;
+  filter: blur(32px) invert(1);
   background-image: var(--white-gradient), var(--aurora);
   background-size: 300%, 200%;
   background-position: 50% 50%, 50% 50%;
 }
 
 .dark .aurora-framer-base {
-  filter: blur(10px) invert(0);
+  filter: blur(32px) invert(0);
   background-image: var(--dark-gradient), var(--aurora);
 }
 
+/* Must match Next arbitrary mask: ellipse at 100% 0% (not a fixed 80%×50% ellipse) */
 .aurora-framer-radial.aurora-framer-base {
-  mask-image: radial-gradient(ellipse 80% 50% at 100% 0%, black 10%, transparent 70%);
-  -webkit-mask-image: radial-gradient(ellipse 80% 50% at 100% 0%, black 10%, transparent 70%);
+  mask-image: radial-gradient(ellipse at 100% 0%, black 10%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at 100% 0%, black 10%, transparent 70%);
 }
 
 .aurora-framer-shimmer {
   position: absolute;
   inset: 0;
   mix-blend-mode: difference;
-  background-attachment: fixed;
+  /* scroll avoids broken “fixed” attachment inside Framer’s viewport */
+  background-attachment: scroll;
   background-image: var(--white-gradient), var(--aurora);
   background-size: 200%, 100%;
   animation: aurora-framer 60s linear infinite;
+  /* Moving layer reads stronger than the static blurred base */
+  opacity: 0.92;
+  will-change: background-position;
 }
 
 .dark .aurora-framer-shimmer {
   background-image: var(--dark-gradient), var(--aurora);
+}
+
+.aurora-framer-radial.aurora-framer-shimmer {
+  mask-image: radial-gradient(ellipse at 100% 0%, black 10%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at 100% 0%, black 10%, transparent 70%);
 }
 
 .aurora-framer-content {
@@ -117,17 +138,30 @@ const css = `
 export type AuroraFramerReferenceProps = {
   children?: React.ReactNode
   showRadialGradient?: boolean
+  /**
+   * When true (default), root has no fill — Framer page/section color shows through.
+   * When false, uses the same zinc-50 / zinc-900 base as the Next `AuroraBackground`.
+   */
+  transparentBase?: boolean
 }
 
 /**
- * Drop-in visual twin of `aurora/components/ui/aurora-background.tsx` using plain CSS.
+ * Plain-CSS aurora aligned with `aurora/components/ui/aurora-background.tsx`
+ * (blur, mask, opacity tuned for Framer’s canvas; default transparent base).
  */
 export function AuroraFramerReference({
   children,
   showRadialGradient = true,
+  transparentBase = true,
 }: AuroraFramerReferenceProps) {
+  const rootClass =
+    "aurora-framer-root " +
+    (transparentBase
+      ? "aurora-framer-root--transparent"
+      : "aurora-framer-root--solid")
+
   return (
-    <div className="aurora-framer-root">
+    <div className={rootClass}>
       <style dangerouslySetInnerHTML={{ __html: css }} />
       <div className="aurora-framer-backdrop">
         <div

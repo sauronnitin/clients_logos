@@ -45,6 +45,8 @@ The component sets `pointer-events: none` on both the wrapper and the **iframe**
 
 For a decorative background with **zero** iframe quirks, use the plain-CSS twin in [`aurora-framer-reference.tsx`](aurora-framer-reference.tsx) as a **Framer Code** component (or rebuild the same layers with gradients + blur on the canvas). Same visual language as the Next app; all hero UI stays 100% native Framer.
 
+The component defaults to **`transparentBase`** so your Framer section background shows through (no flat white card). Pass **`transparentBase={false}`** if you want the same zinc-50 / dark zinc fill as the Next site. After pulling updates, **re-paste** the file into Framer so CSS changes apply.
+
 ---
 
 ### Layer order reminder
