@@ -1,6 +1,32 @@
-# Embed the Next.js integration hero in Framer (option 2)
+# Embed Next.js pages in Framer (iframes)
 
-The `aurora` app exposes a **minimal page** meant for an iframe:
+## Aurora-only background (`/embed/aurora`)
+
+Use this when you want the **animated aurora** behind a Framer section (no hero copy, no footer).
+
+**Path:** `/embed/aurora`
+
+**Example (GitHub Pages, repo `clients_logos`):**  
+`https://sauronnitin.github.io/clients_logos/embed/aurora`
+
+### Steps in Framer
+
+1. Build your **section** (headline, logos, etc.) in Framer as usual.
+2. Insert **Embed** (Utilities → **Embed**).
+3. Paste the full **https** URL above (swap user/repo if yours differ).
+4. In the **Layers** panel, drag the Embed **below** your content so the content sits **on top**, or pin the Embed **absolute** with **Fill** so it covers the section and keep content in a higher **z-index** layer.
+5. Set the Embed frame to the **same size** as the section (width **100%**, height = section height — e.g. **720–900px**). The aurora uses `100vh` inside the iframe, so it fills whatever height you give the embed.
+6. Publish and test on the live Framer site.
+
+### Without an iframe (Code / native)
+
+- Copy the plain-CSS reference from [`aurora-framer-reference.tsx`](aurora-framer-reference.tsx) into a **Framer Code** component, or rebuild the look with **gradients + blur** on a full-bleed frame (no Tailwind in Code).
+
+---
+
+## Integration hero (`/embed/integration-hero`)
+
+The `aurora` app also exposes a **minimal page** for the integrations hero:
 
 **Path:** `/embed/integration-hero`
 
