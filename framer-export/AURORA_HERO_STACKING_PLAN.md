@@ -99,7 +99,7 @@ Aurora + hero must stay **correct at each breakpoint** you ship (e.g. Desktop / 
 
 ## Definition of done (checklist)
 
-- [x] **Repo:** `AuroraIframePassThrough` defaults to `…/embed/aurora?soft=1`, `z-index: 0` on wrapper; `/embed` layout uses `z-0` for predictable stacking.
+- [x] **Repo:** `AuroraIframePassThrough` defaults to `…/embed/aurora` (21st-style difference blend); add `?soft=1` if needed; `z-index: 0` on wrapper; `/embed` layout uses `z-0` for predictable stacking.
 - [ ] Badge, headline, body, and marquee read **crisp** (no “underwater” / difference blobs on type).
 - [ ] Aurora reads as **background** (visible but not obscuring UI).
 - [ ] **Book a call** and other hero links work (pointer strategy unchanged).

@@ -58,11 +58,9 @@ That turns off `mix-blend-difference` on the moving layer inside the iframe (sli
 
 #### Aurora looks black / muddy inside the iframe (light Framer page)
 
-The hosted `/embed/aurora` route paints a **zinc-50 plate inside the iframe** and uses a **light-only blend path**: no `filter: invert` and no `mix-blend-difference` on the animated layer. The main site look relies on invert + high-contrast stripes; that same math reads as **black rays** in a small iframe on zinc. Redeploy after pulling the latest `aurora` app.
+The hosted `/embed/aurora` route paints a **zinc-50 plate** inside the iframe, then runs the **same Aceternity / 21st.dev stack** as the main site: **`blur(32px) invert(1)`** on the base layer, **`mix-blend-difference`** on the animated layer (unless you add **`?soft=1`**, which switches to `mix-blend-normal` + lower opacity for calmer Framer text). Vignette: **`radial-gradient(ellipse at 100% 0%, …)`** via **`mask-image` and `-webkit-mask-image`**. Base filters use **`!important`** so Framer’s webview still applies blur/invert.
 
-The embed uses a **softer elliptical (spotlight) mask** than the main site—same idea as the circular / radial vignette, with gentler falloff so the **left column** (headline) still gets glow. Masks use **`-webkit-mask-image`** as well for Framer’s engine. To disable the vignette for testing, we’d need a query param (not wired by default); `showRadialGradient` is on for `/embed/aurora`.
-
-**Still flat / no motion?** Open the embed URL **alone** in Chrome (not inside Framer). In DevTools → Elements, find a `div` with class **`aurora-embed-motion`** — it should list `animation: aurora 28s linear infinite` in computed styles. If that class is missing, GitHub Pages is still serving an old export; trigger a deploy. If the class exists but `animation` is none, check **Windows Settings → Accessibility → Visual effects → Animation effects** (off can limit motion).
+**Still flat / no motion?** Open the embed URL **alone** in Chrome. Look for **`aurora-21st-motion`** — computed **`animation`** should be **`aurora 60s linear infinite`**. If **`filter: blur`** is missing on **`aurora-21st-base`**, hard-refresh or confirm the latest Pages deploy.
 
 #### Framer Embed only offers Fixed / Relative height (no Fill / Auto)
 

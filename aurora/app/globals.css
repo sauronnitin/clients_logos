@@ -48,8 +48,6 @@
 
     /* Aurora background — matches Tailwind default palette as CSS variables */
     --animate-aurora: aurora 60s linear infinite;
-    /* Slightly faster in /embed/aurora so motion reads in a small iframe (main site keeps 60s). */
-    --animate-aurora-embed: aurora 32s linear infinite;
     /* Integration hero — infinite marquee rows */
     --animate-integration-scroll-left: integration-scroll-left 30s linear infinite;
     --animate-integration-scroll-right: integration-scroll-right 30s linear infinite;
@@ -166,48 +164,20 @@
 }
 
 /*
- * /embed/aurora (Framer iframe): plain classes so blur + background-position animation
- * always apply. Relying only on Tailwind utilities inside iframes has been unreliable
- * (missing rules / compositing). Gradients are set inline from AuroraBackground.
+ * /embed/aurora: same blur+invert as main Aceternity / 21st.dev stack; !important survives Framer webview.
  */
 @layer components {
-  .aurora-embed-static {
-    pointer-events: none;
-    position: absolute;
-    inset: -14px;
-    opacity: 0.84;
-    filter: blur(56px);
-    -webkit-filter: blur(56px);
-    background-size: 320% 210%;
-    background-position: 50% 50%, 50% 50%;
-  }
-
-  /* Extra-diffuse color wash between ray bands (static). */
-  .aurora-embed-bloom {
-    pointer-events: none;
-    position: absolute;
-    inset: -24px;
-    opacity: 0.42;
-    filter: blur(80px);
-    -webkit-filter: blur(80px);
-    background-size: 260% 190%;
-    background-position: 45% 40%;
-  }
-
-  .aurora-embed-motion {
-    pointer-events: none;
-    position: absolute;
-    inset: 0;
-    opacity: 0.62;
-    mix-blend-mode: normal;
-    background-size: 200% 100%;
-    background-position: 50% 50%, 50% 50%;
-    background-attachment: scroll;
-    filter: blur(18px);
-    -webkit-filter: blur(18px);
-    animation: aurora 28s linear infinite;
-    will-change: background-position;
+  .aurora-21st-base {
+    filter: blur(32px) invert(1) !important;
+    -webkit-filter: blur(32px) invert(1) !important;
     transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+
+  .aurora-21st-motion {
+    animation: aurora 60s linear infinite;
+    will-change: background-position;
   }
 }
 
