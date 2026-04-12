@@ -9,12 +9,17 @@ import * as React from "react"
  * iframe uses pointer-events: none (that only affects hit targets *inside* the iframe).
  *
  * Drop this file into Framer as a **Code** component, size it like your background,
- * place it behind hero text/CTAs in the layer list, and set your deploy URL below.
+ * place it behind hero text/CTAs/marquee in the layer list, and set your deploy URL below.
+ *
+ * Default URL includes **`?soft=1`** (gentler blend for native Framer layers on top).
  *
  * @see ./FRAMER_EMBED_INSTRUCTIONS.md
  */
+const DEFAULT_AURORA_EMBED =
+  "https://sauronnitin.github.io/clients_logos/embed/aurora?soft=1"
+
 export default function AuroraIframePassThrough({
-  src = "https://sauronnitin.github.io/clients_logos/embed/aurora",
+  src = DEFAULT_AURORA_EMBED,
   title = "Aurora background",
 }: {
   src?: string
@@ -27,6 +32,7 @@ export default function AuroraIframePassThrough({
         height: "100%",
         minHeight: "100%",
         position: "relative",
+        zIndex: 0,
         overflow: "hidden",
         pointerEvents: "none",
         isolation: "isolate",
@@ -55,7 +61,7 @@ addPropertyControls(AuroraIframePassThrough, {
   src: {
     type: ControlType.String,
     title: "Aurora URL",
-    defaultValue: "https://sauronnitin.github.io/clients_logos/embed/aurora",
+    defaultValue: DEFAULT_AURORA_EMBED,
     displayTextArea: true,
   },
   title: {
