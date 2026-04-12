@@ -168,16 +168,19 @@
  */
 @layer components {
   .aurora-21st-base {
-    filter: blur(32px) invert(1) !important;
-    -webkit-filter: blur(32px) invert(1) !important;
+    filter: blur(40px) invert(1) !important;
+    -webkit-filter: blur(40px) invert(1) !important;
     transform: translateZ(0);
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
   }
 
+  /* Feather moving stripes so difference-blend does not read as hard diagonal cuts. */
   .aurora-21st-motion {
     animation: aurora 60s linear infinite;
-    will-change: background-position;
+    will-change: background-position, filter;
+    filter: blur(18px) !important;
+    -webkit-filter: blur(18px) !important;
   }
 }
 

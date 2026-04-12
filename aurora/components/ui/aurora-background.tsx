@@ -49,6 +49,16 @@ const lightAuroraGradientVars = `
             [--aurora:repeating-linear-gradient(100deg,var(--blue-500)_10%,var(--indigo-300)_15%,var(--blue-300)_20%,var(--violet-200)_25%,var(--blue-400)_30%)]
             `
 
+/**
+ * Wider color stops + longer fades between bands so motion reads as glow, not crisp vector stripes
+ * (especially under `mix-blend-difference` in Framer). Embed-only to stay close to main-site math elsewhere.
+ */
+const lightAuroraGradientVarsSoft = `
+            [--white-gradient:repeating-linear-gradient(100deg,var(--white)_0%,var(--white)_8%,var(--transparent)_12%,var(--transparent)_18%,var(--white)_24%)]
+            [--dark-gradient:repeating-linear-gradient(100deg,var(--black)_0%,var(--black)_8%,var(--transparent)_12%,var(--transparent)_18%,var(--black)_24%)]
+            [--aurora:repeating-linear-gradient(100deg,var(--blue-500)_7%,var(--indigo-300)_13%,var(--blue-300)_21%,var(--violet-200)_29%,var(--blue-400)_37%)]
+            `
+
 export function AuroraBackground({
   className,
   children,
@@ -70,6 +80,8 @@ export function AuroraBackground({
     `[mask-image:radial-gradient(ellipse_at_100%_0%,black_10%,var(--transparent)_70%)]`
 
   const maskInline = vignetteStyle(showRadialGradient)
+
+  const gradientVars = opaqueEmbedBase ? lightAuroraGradientVarsSoft : lightAuroraGradientVars
 
   return (
     <div
@@ -109,7 +121,7 @@ export function AuroraBackground({
              */}
             <div
               className={cn(
-                lightAuroraGradientVars,
+                gradientVars,
                 "aurora-21st-base pointer-events-none absolute inset-0",
                 "[background-image:var(--white-gradient),var(--aurora)]",
                 "[background-size:300%,_200%]",
@@ -119,7 +131,7 @@ export function AuroraBackground({
             />
             <div
               className={cn(
-                lightAuroraGradientVars,
+                gradientVars,
                 "aurora-21st-motion pointer-events-none absolute inset-0",
                 "[background-image:var(--white-gradient),var(--aurora)]",
                 "[background-size:200%,_100%]",
@@ -143,6 +155,7 @@ export function AuroraBackground({
               !useSoftAnimatedLayer &&
                 `
             after:absolute after:inset-0 after:animate-aurora after:mix-blend-difference after:opacity-90 after:content-[""]
+            after:blur-[18px]
             after:[background-image:var(--white-gradient),var(--aurora)]
             after:[background-size:200%,_100%]
             after:dark:[background-image:var(--dark-gradient),var(--aurora)]
@@ -151,6 +164,7 @@ export function AuroraBackground({
               useSoftAnimatedLayer &&
                 `
             after:absolute after:inset-0 after:animate-aurora after:mix-blend-normal after:content-[""]
+            after:blur-[18px]
             after:[background-image:var(--white-gradient),var(--aurora)]
             after:[background-size:200%,_100%]
             after:dark:[background-image:var(--dark-gradient),var(--aurora)]
