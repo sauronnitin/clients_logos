@@ -1,5 +1,7 @@
 # Deploy `aurora` with GitHub + Vercel
 
+If you want **GitHub only** (no Vercel/Netlify), use **[`DEPLOY_GITHUB_PAGES.md`](DEPLOY_GITHUB_PAGES.md)** instead.
+
 The Next.js app lives in **`aurora/`**. The Git repository root is this folder (`Portfolio - Framer - Mar26`).
 
 ## 1. Create a GitHub repository
