@@ -34,6 +34,21 @@ export function AuroraBackground({
     ? "after:[background-attachment:scroll]"
     : "after:[background-attachment:fixed]"
 
+  /** Framer iframe: `invert` + white/black stripe gradients read as black rays; skip invert and difference blend. */
+  const embedLightPipeline = opaqueEmbedBase
+  const useSoftAnimatedLayer = softBlend || embedLightPipeline
+
+  const gradientVars = embedLightPipeline
+    ? `
+            [--white-gradient:repeating-linear-gradient(100deg,rgba(255,255,255,0.2)_0%,rgba(255,255,255,0.2)_7%,transparent_10%,transparent_12%,rgba(255,255,255,0.2)_16%)]
+            [--aurora:repeating-linear-gradient(100deg,var(--blue-500)_10%,var(--indigo-300)_15%,var(--blue-300)_20%,var(--violet-200)_25%,var(--blue-400)_30%)]
+            `
+    : `
+            [--white-gradient:repeating-linear-gradient(100deg,var(--white)_0%,var(--white)_7%,var(--transparent)_10%,var(--transparent)_12%,var(--white)_16%)]
+            [--dark-gradient:repeating-linear-gradient(100deg,var(--black)_0%,var(--black)_7%,var(--transparent)_10%,var(--transparent)_12%,var(--black)_16%)]
+            [--aurora:repeating-linear-gradient(100deg,var(--blue-500)_10%,var(--indigo-300)_15%,var(--blue-300)_20%,var(--violet-200)_25%,var(--blue-400)_30%)]
+            `
+
   return (
     <div
       className={cn(
@@ -55,33 +70,42 @@ export function AuroraBackground({
       <div className="pointer-events-none absolute inset-0 z-[1] origin-center isolate scale-x-[-1] overflow-hidden">
         <div
           className={cn(
-            `
-            [--white-gradient:repeating-linear-gradient(100deg,var(--white)_0%,var(--white)_7%,var(--transparent)_10%,var(--transparent)_12%,var(--white)_16%)]
-            [--dark-gradient:repeating-linear-gradient(100deg,var(--black)_0%,var(--black)_7%,var(--transparent)_10%,var(--transparent)_12%,var(--black)_16%)]
-            [--aurora:repeating-linear-gradient(100deg,var(--blue-500)_10%,var(--indigo-300)_15%,var(--blue-300)_20%,var(--violet-200)_25%,var(--blue-400)_30%)]
-            [background-image:var(--white-gradient),var(--aurora)]
-            dark:[background-image:var(--dark-gradient),var(--aurora)]
-            [background-size:300%,_200%]
-            [background-position:50%_50%,50%_50%]
-            pointer-events-none absolute -inset-[10px] opacity-65 blur-[32px] invert filter will-change-transform
-            dark:invert-0
-            `,
-            !softBlend &&
+            gradientVars,
+            "[background-image:var(--white-gradient),var(--aurora)]",
+            !embedLightPipeline && "dark:[background-image:var(--dark-gradient),var(--aurora)]",
+            "[background-size:300%,_200%]",
+            "[background-position:50%_50%,50%_50%]",
+            "pointer-events-none absolute -inset-[10px] blur-[32px] filter will-change-transform",
+            embedLightPipeline
+              ? "opacity-55"
+              : "opacity-65 invert dark:invert-0",
+            !useSoftAnimatedLayer &&
               `
             after:absolute after:inset-0 after:animate-aurora after:mix-blend-difference after:opacity-90 after:content-[""]
             after:[background-image:var(--white-gradient),var(--aurora)]
             after:[background-size:200%,_100%]
             after:dark:[background-image:var(--dark-gradient),var(--aurora)]
             `,
-            !softBlend && afterAttachment,
-            softBlend &&
+            !useSoftAnimatedLayer && afterAttachment,
+            useSoftAnimatedLayer &&
+              embedLightPipeline &&
               `
-            after:absolute after:inset-0 after:animate-aurora after:mix-blend-normal after:opacity-55 after:content-[""]
+            after:absolute after:inset-0 after:animate-aurora after:mix-blend-normal after:content-[""]
+            after:[background-image:var(--white-gradient),var(--aurora)]
+            after:[background-size:200%,_100%]
+            `,
+            useSoftAnimatedLayer &&
+              !embedLightPipeline &&
+              `
+            after:absolute after:inset-0 after:animate-aurora after:mix-blend-normal after:content-[""]
             after:[background-image:var(--white-gradient),var(--aurora)]
             after:[background-size:200%,_100%]
             after:dark:[background-image:var(--dark-gradient),var(--aurora)]
             `,
-            softBlend && afterAttachment,
+            embedLightPipeline && "after:opacity-45",
+            !embedLightPipeline && softBlend && "after:opacity-55",
+            !embedLightPipeline && !softBlend && "after:opacity-90",
+            useSoftAnimatedLayer && afterAttachment,
             showRadialGradient &&
               `[mask-image:radial-gradient(ellipse_at_100%_0%,black_10%,var(--transparent)_70%)]`
           )}

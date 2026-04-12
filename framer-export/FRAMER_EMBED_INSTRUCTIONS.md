@@ -41,7 +41,7 @@ That turns off `mix-blend-difference` on the moving layer inside the iframe (sli
 
 #### Aurora looks black / muddy inside the iframe (light Framer page)
 
-The hosted `/embed/aurora` route paints a **zinc-50 plate inside the iframe** behind the blurred gradients so `blur` + `invert` composite against a real light surface. Without that, transparency under the filters reads as **dark smears**. Redeploy GitHub Pages (or your host) after updating the `aurora` app so you get this behavior.
+The hosted `/embed/aurora` route paints a **zinc-50 plate inside the iframe** and uses a **light-only blend path**: no `filter: invert` and no `mix-blend-difference` on the animated layer. The main site look relies on invert + high-contrast stripes; that same math reads as **black rays** in a small iframe on zinc. Redeploy after pulling the latest `aurora` app.
 
 #### Framer Embed only offers Fixed / Relative height (no Fill / Auto)
 
