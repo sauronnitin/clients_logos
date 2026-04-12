@@ -53,6 +53,10 @@ Confirm the URL loads the hero full-width with no extra chrome.
 4. Set width to **100%** of your frame (or the max width you want).
 5. Publish and check the live site (preview and production can differ).
 
+## If you see “Application error: a client-side exception”
+
+Embedded pages must not use **`next-themes` / `localStorage`** in a cross-origin iframe (Framer blocks storage; Safari throws). This repo keeps **`ThemeProvider` only on site routes** (`(site)` group); **`/embed/*`** routes render without it so the aurora and integration-hero embeds load in Framer.
+
 ## If the iframe is blank or blocked
 
 - **Wrong path:** GitHub project sites need the repo name in the path; copy the URL from the browser after opening the deployed page.
