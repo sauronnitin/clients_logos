@@ -3,15 +3,33 @@
 import { cn } from "@/lib/utils"
 import type { CSSProperties, HTMLAttributes, ReactNode } from "react"
 
-/** Literal hex gradients for Framer embed — avoids var(--blue-500) failing if chunks reorder. */
+/** Wider stops = rays farther apart + room for blur to blend between them (Framer iframe). */
 const EMBED_STRIPE_GRADIENT =
-  "repeating-linear-gradient(100deg, rgba(255,255,255,0.58) 0%, rgba(255,255,255,0.58) 8%, transparent 11%, transparent 14%, rgba(255,255,255,0.42) 18%)"
+  "repeating-linear-gradient(100deg, rgba(255,255,255,0.48) 0%, rgba(255,255,255,0.48) 5%, transparent 10%, transparent 28%, rgba(255,255,255,0.34) 32%, transparent 36%, transparent 52%)"
 const EMBED_COLOR_GRADIENT =
-  "repeating-linear-gradient(100deg, #3b82f6 8%, #a5b4fc 13%, #93c5fd 20%, #ddd6fe 26%, #60a5fa 32%)"
+  "repeating-linear-gradient(100deg, #3b82f6 3%, #60a5fa 16%, #a5b4fc 30%, #93c5fd 44%, #ddd6fe 54%, #a5b4fc 64%, #3b82f6 78%)"
+
+/** Softer than the main-site mask: keeps left/center visible, still fades edges (ellipse “spotlight”). */
+const EMBED_RADIAL_MASK =
+  "radial-gradient(ellipse 125% 95% at 90% 0%, black 0%, black 14%, rgba(0,0,0,0.5) 32%, rgba(0,0,0,0.15) 52%, transparent 74%)"
 
 function embedLayerBackground(): CSSProperties {
   return {
     backgroundImage: `${EMBED_STRIPE_GRADIENT}, ${EMBED_COLOR_GRADIENT}`,
+  }
+}
+
+function embedMaskStyle(enabled: boolean): CSSProperties {
+  if (!enabled) return {}
+  return {
+    WebkitMaskImage: EMBED_RADIAL_MASK,
+    maskImage: EMBED_RADIAL_MASK,
+    WebkitMaskRepeat: "no-repeat",
+    maskRepeat: "no-repeat",
+    WebkitMaskSize: "100% 100%",
+    maskSize: "100% 100%",
+    WebkitMaskPosition: "center",
+    maskPosition: "center",
   }
 }
 
@@ -61,10 +79,7 @@ export function AuroraBackground({
             [--aurora:repeating-linear-gradient(100deg,var(--blue-500)_10%,var(--indigo-300)_15%,var(--blue-300)_20%,var(--violet-200)_25%,var(--blue-400)_30%)]
             `
 
-  /**
-   * Tight top-right radial (main site) wipes most of the iframe on a full-width hero — copy side reads “empty”.
-   * Embed pipeline skips it so blue/lavender washes fill the frame; main / demo keep the vignette.
-   */
+  /** Non-embed: sharp top-right vignette. Embed uses `EMBED_RADIAL_MASK` + webkit mask on each layer. */
   const radialMask =
     !embedLightPipeline &&
     showRadialGradient &&
@@ -91,8 +106,21 @@ export function AuroraBackground({
       <div className="pointer-events-none absolute inset-0 z-[1] origin-center isolate scale-x-[-1] overflow-hidden">
         {embedLightPipeline ? (
           <div className="pointer-events-none absolute inset-0">
-            <div className="aurora-embed-static" style={embedLayerBackground()} />
-            <div className="aurora-embed-motion" style={embedLayerBackground()} />
+            <div
+              className="aurora-embed-static"
+              style={{ ...embedLayerBackground(), ...embedMaskStyle(showRadialGradient) }}
+            />
+            <div
+              className="aurora-embed-bloom"
+              style={{
+                backgroundImage: EMBED_COLOR_GRADIENT,
+                ...embedMaskStyle(showRadialGradient),
+              }}
+            />
+            <div
+              className="aurora-embed-motion"
+              style={{ ...embedLayerBackground(), ...embedMaskStyle(showRadialGradient) }}
+            />
           </div>
         ) : (
           <div

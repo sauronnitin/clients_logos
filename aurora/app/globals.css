@@ -174,23 +174,37 @@
   .aurora-embed-static {
     pointer-events: none;
     position: absolute;
-    inset: -10px;
-    opacity: 0.82;
-    filter: blur(42px);
-    -webkit-filter: blur(42px);
-    background-size: 300% 200%;
+    inset: -14px;
+    opacity: 0.84;
+    filter: blur(56px);
+    -webkit-filter: blur(56px);
+    background-size: 320% 210%;
     background-position: 50% 50%, 50% 50%;
+  }
+
+  /* Extra-diffuse color wash between ray bands (static). */
+  .aurora-embed-bloom {
+    pointer-events: none;
+    position: absolute;
+    inset: -24px;
+    opacity: 0.42;
+    filter: blur(80px);
+    -webkit-filter: blur(80px);
+    background-size: 260% 190%;
+    background-position: 45% 40%;
   }
 
   .aurora-embed-motion {
     pointer-events: none;
     position: absolute;
     inset: 0;
-    opacity: 0.7;
+    opacity: 0.62;
     mix-blend-mode: normal;
     background-size: 200% 100%;
     background-position: 50% 50%, 50% 50%;
     background-attachment: scroll;
+    filter: blur(18px);
+    -webkit-filter: blur(18px);
     animation: aurora 28s linear infinite;
     will-change: background-position;
     transform: translateZ(0);

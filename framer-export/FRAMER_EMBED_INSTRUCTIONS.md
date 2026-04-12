@@ -60,7 +60,7 @@ That turns off `mix-blend-difference` on the moving layer inside the iframe (sli
 
 The hosted `/embed/aurora` route paints a **zinc-50 plate inside the iframe** and uses a **light-only blend path**: no `filter: invert` and no `mix-blend-difference` on the animated layer. The main site look relies on invert + high-contrast stripes; that same math reads as **black rays** in a small iframe on zinc. Redeploy after pulling the latest `aurora` app.
 
-The embed **does not** use the main site’s tight **top-right radial mask** — that mask hid almost everything on a full-bleed Framer hero (especially on the left). The iframe uses a **full-frame** wash so blue/lavender blurs read across the whole embed area.
+The embed uses a **softer elliptical (spotlight) mask** than the main site—same idea as the circular / radial vignette, with gentler falloff so the **left column** (headline) still gets glow. Masks use **`-webkit-mask-image`** as well for Framer’s engine. To disable the vignette for testing, we’d need a query param (not wired by default); `showRadialGradient` is on for `/embed/aurora`.
 
 **Still flat / no motion?** Open the embed URL **alone** in Chrome (not inside Framer). In DevTools → Elements, find a `div` with class **`aurora-embed-motion`** — it should list `animation: aurora 28s linear infinite` in computed styles. If that class is missing, GitHub Pages is still serving an old export; trigger a deploy. If the class exists but `animation` is none, check **Windows Settings → Accessibility → Visual effects → Animation effects** (off can limit motion).
 
