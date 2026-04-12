@@ -164,11 +164,11 @@
 }
 
 /*
- * /embed/aurora: Aceternity registry parity — base is blur(10px) invert (see registry JSON).
- * !important helps Framer’s webview still apply filters.
+ * /embed/aurora: blur(10px) invert on the stack wrapper = same compositing as one DOM node + ::after
+ * (see Aceternity registry). !important helps Framer’s webview.
  */
 @layer components {
-  .aurora-21st-base {
+  .aurora-21st-embed-stack {
     filter: blur(10px) invert(1) !important;
     -webkit-filter: blur(10px) invert(1) !important;
     transform: translateZ(0);
@@ -176,7 +176,6 @@
     backface-visibility: hidden;
   }
 
-  /* Registry: motion is unblurred; only `animate-aurora` + backgrounds + mix-blend-difference. */
   .aurora-21st-motion {
     animation: aurora 60s linear infinite;
     will-change: background-position;

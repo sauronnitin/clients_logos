@@ -4,13 +4,14 @@ import { cn } from "@/lib/utils"
 import type { CSSProperties, HTMLAttributes, ReactNode } from "react"
 
 /**
- * Parity with Aceternity UI / 21st.dev “Aurora Background” — source of truth:
+ * Parity with Aceternity UI / 21st.dev — registry:
  * https://ui.aceternity.com/registry/aurora-background.json
  *
- * Radial vignette (when `showRadialGradient`): `ellipse at 100% 0%, black 10%, transparent 70%`.
+ * Vignette: multi-stop radial so the falloff is not a single hard ring (common pain in iframes).
+ * Core focus stays top-right like `ellipse at 100% 0%, black 10%, transparent 70%`.
  */
 const AURORA_VIGNETTE_MASK =
-  "radial-gradient(ellipse at 100% 0%, black 10%, transparent 70%)"
+  "radial-gradient(ellipse at 100% 0%, rgb(0,0,0) 8%, rgba(0,0,0,0.78) 22%, rgba(0,0,0,0.35) 48%, rgba(0,0,0,0.08) 70%, rgba(0,0,0,0) 84%)"
 
 function vignetteStyle(show: boolean): CSSProperties {
   if (!show) return {}
@@ -65,11 +66,6 @@ export function AuroraBackground({
 
   const useSoftAnimatedLayer = softBlend
 
-  const radialMask =
-    !opaqueEmbedBase &&
-    showRadialGradient &&
-    `[mask-image:radial-gradient(ellipse_at_100%_0%,black_10%,var(--transparent)_70%)]`
-
   const maskInline = vignetteStyle(showRadialGradient)
 
   return (
@@ -99,36 +95,41 @@ export function AuroraBackground({
       >
         {opaqueEmbedBase ? (
           <div
-            className="pointer-events-none absolute -inset-[10px] overflow-hidden opacity-50"
+            className="pointer-events-none absolute -inset-[10px] overflow-hidden"
             style={showRadialGradient ? maskInline : undefined}
           >
             {/*
-             * Registry uses one node + ::after; embed splits into two siblings so `background-position`
-             * animation stays reliable in iframes. Numbers match OG: base blur 10px + invert, motion
-             * has no blur, `mix-blend-difference`, group opacity 50%. Vignette on wrapper (mask + blur).
+             * Registry: blur+invert on the element that owns base + ::after, so blur hits the
+             * composite. Embed uses two siblings inside an inner wrapper with that filter; mask
+             * stays on this outer node so WebKit/iframes don’t drop it when combined with filter.
              */}
             <div
               className={cn(
-                lightAuroraGradientVars,
-                "aurora-21st-base pointer-events-none absolute inset-0",
-                "[background-image:var(--white-gradient),var(--aurora)]",
-                "[background-size:300%,_200%]",
-                "[background-position:50%_50%,50%_50%]",
-                "will-change-transform"
+                "aurora-21st-embed-stack pointer-events-none absolute inset-0 opacity-50"
               )}
-            />
-            <div
-              className={cn(
-                lightAuroraGradientVars,
-                "aurora-21st-motion pointer-events-none absolute inset-0",
-                "[background-image:var(--white-gradient),var(--aurora)]",
-                "[background-size:200%,_100%]",
-                "[background-attachment:scroll]",
-                useSoftAnimatedLayer
-                  ? "mix-blend-normal opacity-55"
-                  : "mix-blend-difference"
-              )}
-            />
+            >
+              <div
+                className={cn(
+                  lightAuroraGradientVars,
+                  "pointer-events-none absolute inset-0 will-change-transform",
+                  "[background-image:var(--white-gradient),var(--aurora)]",
+                  "[background-size:300%,_200%]",
+                  "[background-position:50%_50%,50%_50%]"
+                )}
+              />
+              <div
+                className={cn(
+                  lightAuroraGradientVars,
+                  "aurora-21st-motion pointer-events-none absolute inset-0",
+                  "[background-image:var(--white-gradient),var(--aurora)]",
+                  "[background-size:200%,_100%]",
+                  "[background-attachment:scroll]",
+                  useSoftAnimatedLayer
+                    ? "mix-blend-normal opacity-55"
+                    : "mix-blend-difference"
+                )}
+              />
+            </div>
           </div>
         ) : (
           <div
@@ -156,9 +157,9 @@ export function AuroraBackground({
             after:dark:[background-image:var(--dark-gradient),var(--aurora)]
             `,
               useSoftAnimatedLayer && "after:opacity-55",
-              useSoftAnimatedLayer && afterAttachment,
-              radialMask
+              useSoftAnimatedLayer && afterAttachment
             )}
+            style={showRadialGradient ? maskInline : undefined}
           />
         )}
       </div>
