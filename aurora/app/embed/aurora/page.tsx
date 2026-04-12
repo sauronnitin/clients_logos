@@ -1,6 +1,9 @@
 import type { Metadata } from "next"
+import { Suspense } from "react"
 
 import { AuroraBackground } from "@/components/ui/aurora-background"
+
+import { EmbedAuroraView } from "./embed-aurora-view"
 
 export const metadata: Metadata = {
   title: "Aurora background",
@@ -10,5 +13,11 @@ export const metadata: Metadata = {
 
 /** Full-viewport aurora; transparent base + document so Framer layers behind the iframe can show through gaps. */
 export default function EmbedAuroraPage() {
-  return <AuroraBackground transparentBase />
+  return (
+    <Suspense
+      fallback={<AuroraBackground transparentBase />}
+    >
+      <EmbedAuroraView />
+    </Suspense>
+  )
 }

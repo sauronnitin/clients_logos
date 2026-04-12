@@ -27,6 +27,18 @@ Use this when you want the **animated aurora** behind a Framer section (no hero 
    Framer docs: [Disable pointer events](https://www.framer.com/help/articles/disable-pointer-events/)
 6. Publish and test on the **live** site (preview can differ).
 
+#### Headline / badge / body look “under” the glow (hazy or dark blobs on letters)
+
+Framer’s **Embed** only loads the page at  
+`https://sauronnitin.github.io/clients_logos/embed/aurora` — your “Available for new projects” line, title, and paragraph **are not inside that URL**. They are separate Framer layers. **Paint order follows the Layers list:** whatever is **higher** in the list is drawn **on top**.
+
+- Drag the **Embed** layer **below** your text stack (badge, heading, body) so copy sits **above** the iframe.
+- **Pointer events → None** on the Embed only fixes clicks; it does **not** move the glow behind the text.
+
+If the order is already correct but the effect still feels harsh, try a softer blend (hosted page): append **`?soft=1`** to the embed URL, e.g.  
+`https://sauronnitin.github.io/clients_logos/embed/aurora?soft=1`  
+That turns off `mix-blend-difference` on the moving layer inside the iframe (slightly different look, fewer dark artifacts).
+
 ---
 
 ### Option B — Code component iframe (guaranteed pass-through)

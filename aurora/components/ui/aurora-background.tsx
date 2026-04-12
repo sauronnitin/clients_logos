@@ -8,6 +8,11 @@ export interface AuroraBackgroundProps extends HTMLAttributes<HTMLDivElement> {
   showRadialGradient?: boolean
   /** No solid zinc fill — use behind Framer layers in an Embed (see /embed/aurora). */
   transparentBase?: boolean
+  /**
+   * Softer animated layer (no `mix-blend-difference`) for iframe/embed hosts where
+   * the default blend reads as dark blobs or heavy haze over Framer text. Use `?soft=1` on `/embed/aurora`.
+   */
+  softBlend?: boolean
 }
 
 export function AuroraBackground({
@@ -15,6 +20,7 @@ export function AuroraBackground({
   children,
   showRadialGradient = true,
   transparentBase = false,
+  softBlend = false,
   ...props
 }: AuroraBackgroundProps) {
   return (
@@ -42,7 +48,18 @@ export function AuroraBackground({
             [background-position:50%_50%,50%_50%]
             pointer-events-none absolute -inset-[10px] opacity-65 blur-[32px] invert filter will-change-transform
             dark:invert-0
+            `,
+            !softBlend &&
+              `
             after:absolute after:inset-0 after:animate-aurora after:mix-blend-difference after:opacity-90 after:content-[""]
+            after:[background-attachment:fixed]
+            after:[background-image:var(--white-gradient),var(--aurora)]
+            after:[background-size:200%,_100%]
+            after:dark:[background-image:var(--dark-gradient),var(--aurora)]
+            `,
+            softBlend &&
+              `
+            after:absolute after:inset-0 after:animate-aurora after:mix-blend-normal after:opacity-55 after:content-[""]
             after:[background-attachment:fixed]
             after:[background-image:var(--white-gradient),var(--aurora)]
             after:[background-size:200%,_100%]
