@@ -90,7 +90,7 @@ export function AuroraBackground({
             useSoftAnimatedLayer &&
               embedLightPipeline &&
               `
-            after:absolute after:inset-0 after:animate-aurora after:mix-blend-normal after:content-[""]
+            after:absolute after:inset-0 after:animate-aurora-embed after:mix-blend-normal after:content-[""]
             after:[background-image:var(--white-gradient),var(--aurora)]
             after:[background-size:200%,_100%]
             `,

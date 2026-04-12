@@ -12,6 +12,9 @@ import * as React from "react"
  * place it behind hero text/CTAs/marquee in the layer list, and set your deploy URL below.
  *
  * Default URL includes **`?soft=1`** (gentler blend for native Framer layers on top).
+ * Do **not** set this component’s z-index to **-1** in Framer — it will sit under the section
+ * background and the aurora will look missing or frozen. Use **z-index 0** here and **positive**
+ * z-index on your hero content wrapper instead.
  *
  * @see ./FRAMER_EMBED_INSTRUCTIONS.md
  */

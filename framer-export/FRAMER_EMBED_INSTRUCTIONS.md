@@ -38,6 +38,12 @@ The hosted page is **only** the moving gradient. Your headline, body, and **Book
 
 A **duplicate avatar** or other stray UI is usually a second copy of a component or a **fixed** nav spanning breakpoints—search the layer list for duplicates and check **position** on each breakpoint.
 
+#### Don’t set the Embed to `z-index: -1` (aurora “stops animating” or disappears)
+
+In CSS, a child with **negative z-index** is painted **behind that parent’s own background**. Framer hero sections usually have a **solid fill**. So **z-index: -1** on the Embed puts the entire iframe **under that fill**—you see a flat section color, no shimmer, and it feels like the animation broke. The animation is still running inside the iframe; you’re just not seeing it.
+
+**Do this instead:** remove negative z-index from the Embed (leave it at **0** / auto). Put **z-index: 1** (or **10**) on the **frame or stack** that wraps **only** your hero text, buttons, and images—**not** on the Embed. Keep **Pointer events → None** on the Embed.
+
 #### Headline / badge / body look “under” the glow (hazy or dark blobs on letters)
 
 Framer’s **Embed** only loads the page at  
