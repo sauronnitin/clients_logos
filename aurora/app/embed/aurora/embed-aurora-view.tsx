@@ -12,5 +12,11 @@ export function EmbedAuroraView() {
   const softBlend =
     searchParams.get("soft") === "1" || searchParams.get("soft") === "true"
 
-  return <AuroraBackground transparentBase softBlend={softBlend} />
+  return (
+    <AuroraBackground
+      opaqueEmbedBase
+      softBlend={softBlend}
+      transparentBase
+    />
+  )
 }

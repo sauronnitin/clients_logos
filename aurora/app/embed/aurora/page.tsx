@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export default function EmbedAuroraPage() {
   return (
     <Suspense
-      fallback={<AuroraBackground transparentBase />}
+      fallback={<AuroraBackground opaqueEmbedBase transparentBase />}
     >
       <EmbedAuroraView />
     </Suspense>

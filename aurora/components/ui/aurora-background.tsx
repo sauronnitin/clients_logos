@@ -13,6 +13,12 @@ export interface AuroraBackgroundProps extends HTMLAttributes<HTMLDivElement> {
    * the default blend reads as dark blobs or heavy haze over Framer text. Use `?soft=1` on `/embed/aurora`.
    */
   softBlend?: boolean
+  /**
+   * When `transparentBase` is on, filters still need an opaque surface to composite against.
+   * Without this, `blur` + `invert` against transparency reads as black/muddy smears in iframes.
+   * Embed routes should set this to true (zinc-50 plate inside the iframe only).
+   */
+  opaqueEmbedBase?: boolean
 }
 
 export function AuroraBackground({
@@ -21,8 +27,13 @@ export function AuroraBackground({
   showRadialGradient = true,
   transparentBase = false,
   softBlend = false,
+  opaqueEmbedBase = false,
   ...props
 }: AuroraBackgroundProps) {
+  const afterAttachment = opaqueEmbedBase
+    ? "after:[background-attachment:scroll]"
+    : "after:[background-attachment:fixed]"
+
   return (
     <div
       className={cn(
@@ -35,7 +46,13 @@ export function AuroraBackground({
       )}
       {...props}
     >
-      <div className="pointer-events-none absolute inset-0 z-0 origin-center isolate scale-x-[-1] overflow-hidden">
+      {transparentBase && opaqueEmbedBase ? (
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 z-0 bg-zinc-50 dark:bg-zinc-900"
+        />
+      ) : null}
+      <div className="pointer-events-none absolute inset-0 z-[1] origin-center isolate scale-x-[-1] overflow-hidden">
         <div
           className={cn(
             `
@@ -52,19 +69,19 @@ export function AuroraBackground({
             !softBlend &&
               `
             after:absolute after:inset-0 after:animate-aurora after:mix-blend-difference after:opacity-90 after:content-[""]
-            after:[background-attachment:fixed]
             after:[background-image:var(--white-gradient),var(--aurora)]
             after:[background-size:200%,_100%]
             after:dark:[background-image:var(--dark-gradient),var(--aurora)]
             `,
+            !softBlend && afterAttachment,
             softBlend &&
               `
             after:absolute after:inset-0 after:animate-aurora after:mix-blend-normal after:opacity-55 after:content-[""]
-            after:[background-attachment:fixed]
             after:[background-image:var(--white-gradient),var(--aurora)]
             after:[background-size:200%,_100%]
             after:dark:[background-image:var(--dark-gradient),var(--aurora)]
             `,
+            softBlend && afterAttachment,
             showRadialGradient &&
               `[mask-image:radial-gradient(ellipse_at_100%_0%,black_10%,var(--transparent)_70%)]`
           )}

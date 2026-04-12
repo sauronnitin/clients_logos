@@ -39,6 +39,14 @@ If the order is already correct but the effect still feels harsh, try a softer b
 `https://sauronnitin.github.io/clients_logos/embed/aurora?soft=1`  
 That turns off `mix-blend-difference` on the moving layer inside the iframe (slightly different look, fewer dark artifacts).
 
+#### Aurora looks black / muddy inside the iframe (light Framer page)
+
+The hosted `/embed/aurora` route paints a **zinc-50 plate inside the iframe** behind the blurred gradients so `blur` + `invert` composite against a real light surface. Without that, transparency under the filters reads as **dark smears**. Redeploy GitHub Pages (or your host) after updating the `aurora` app so you get this behavior.
+
+#### Framer Embed only offers Fixed / Relative height (no Fill / Auto)
+
+Set a **fixed height in px** that matches your hero frame (often **720–900**; tweak until the glow is not clipped). **Width** can be **100%** or full bleed. Position the embed **inside** the hero section; avoid full-viewport **fixed** unless you also raise `z-index` on the text stack (see `AURORA_HERO_STACKING_PLAN.md`).
+
 ---
 
 ### Option B — Code component iframe (guaranteed pass-through)
