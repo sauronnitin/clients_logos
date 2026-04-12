@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description: "Embeddable aurora background for Framer and other hosts.",
 }
 
-/** Full-viewport aurora inside the iframe; Framer sets iframe height → 100vh matches the embed. */
+/** Full-viewport aurora; transparent base + document so Framer layers behind the iframe can show through gaps. */
 export default function EmbedAuroraPage() {
-  return <AuroraBackground />
+  return <AuroraBackground transparentBase />
 }

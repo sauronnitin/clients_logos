@@ -16,7 +16,8 @@ Use this when you want the **animated aurora** behind a Framer section (no hero 
 3. Paste the full **https** URL above (swap user/repo if yours differ).
 4. In the **Layers** panel, drag the Embed **below** your content so the content sits **on top**, or pin the Embed **absolute** with **Fill** so it covers the section and keep content in a higher **z-index** layer.
 5. Set the Embed frame to the **same size** as the section (width **100%**, height = section height — e.g. **720–900px**). The aurora uses `100vh` inside the iframe, so it fills whatever height you give the embed.
-6. Publish and test on the live Framer site.
+6. **Layer order:** An iframe is a **rectangle of pixels**, not a Photoshop mask. Anything **behind** the Embed in Framer is **hidden** unless the iframe’s page leaves areas transparent. The deployed `/embed/aurora` route uses a **transparent** `html`/`body` and **no solid zinc fill** so Framer content **below** the Embed can show through where the glow is thin or masked—but the blurred gradient still covers a lot of the area. For **crisp** logos or a marquee, place those layers **above** the Embed (higher in the layer list), not underneath.
+7. Publish and test on the live Framer site.
 
 ### Without an iframe (Code / native)
 

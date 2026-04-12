@@ -142,6 +142,12 @@
   html {
     @apply font-sans;
     }
+
+  /* Framer (or any parent) can show through iframe gaps when embed routes opt in */
+  html[data-embed-transparent="true"],
+  html[data-embed-transparent="true"] body {
+    background-color: transparent !important;
+  }
 }
 
 @keyframes aurora {

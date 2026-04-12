@@ -6,18 +6,24 @@ import type { HTMLAttributes, ReactNode } from "react"
 export interface AuroraBackgroundProps extends HTMLAttributes<HTMLDivElement> {
   children?: ReactNode
   showRadialGradient?: boolean
+  /** No solid zinc fill — use behind Framer layers in an Embed (see /embed/aurora). */
+  transparentBase?: boolean
 }
 
 export function AuroraBackground({
   className,
   children,
   showRadialGradient = true,
+  transparentBase = false,
   ...props
 }: AuroraBackgroundProps) {
   return (
     <div
       className={cn(
-        "relative flex h-[100vh] flex-col items-center justify-center bg-zinc-50 text-slate-950 transition-colors dark:bg-zinc-900",
+        "relative flex h-[100vh] flex-col items-center justify-center text-slate-950 transition-colors",
+        !transparentBase &&
+          "bg-zinc-50 dark:bg-zinc-900",
+        transparentBase && "bg-transparent dark:bg-transparent",
         className
       )}
       {...props}
