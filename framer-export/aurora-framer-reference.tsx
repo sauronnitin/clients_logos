@@ -72,14 +72,14 @@ const css = `
     var(--transparent) 12%,
     var(--black) 16%
   );
-  /* Slightly wider color stops = softer bands (closer to blurred glow) */
+  /* Aceternity registry stops */
   --aurora: repeating-linear-gradient(
     100deg,
-    var(--blue-500) 8%,
-    var(--indigo-300) 14%,
-    var(--blue-300) 22%,
-    var(--violet-200) 30%,
-    var(--blue-400) 36%
+    var(--blue-500) 10%,
+    var(--indigo-300) 15%,
+    var(--blue-300) 20%,
+    var(--violet-200) 25%,
+    var(--blue-400) 30%
   );
   position: absolute;
   inset: 0;
@@ -93,9 +93,9 @@ const css = `
 .aurora-framer-base {
   position: absolute;
   inset: -10px;
-  /* Stronger base wash + heavier blur = less “candy stripe”, more glow */
-  opacity: 0.65;
-  filter: blur(32px) invert(1);
+  /* Aceternity registry: opacity-50, blur(10px), invert */
+  opacity: 0.5;
+  filter: blur(10px) invert(1);
   background-image: var(--white-gradient), var(--aurora);
   background-size: 300%, 200%;
   background-position: 50% 50%, 50% 50%;
@@ -121,8 +121,6 @@ const css = `
   background-image: var(--white-gradient), var(--aurora);
   background-size: 200%, 100%;
   animation: aurora-framer 60s linear infinite;
-  /* Moving layer reads stronger than the static blurred base */
-  opacity: 0.92;
   will-change: background-position;
 }
 

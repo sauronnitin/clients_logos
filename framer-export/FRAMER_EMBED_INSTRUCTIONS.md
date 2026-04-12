@@ -58,7 +58,7 @@ That turns off `mix-blend-difference` on the moving layer inside the iframe (sli
 
 #### Aurora looks black / muddy inside the iframe (light Framer page)
 
-The hosted `/embed/aurora` route paints a **zinc-50 plate** inside the iframe, then runs the **same Aceternity / 21st.dev stack** as the main site: **`blur(32px) invert(1)`** on the base layer, **`mix-blend-difference`** on the animated layer (unless you add **`?soft=1`**, which switches to `mix-blend-normal` + lower opacity for calmer Framer text). Vignette: **`radial-gradient(ellipse at 100% 0%, …)`** via **`mask-image` and `-webkit-mask-image`**. Base filters use **`!important`** so Framer’s webview still applies blur/invert.
+The hosted `/embed/aurora` route paints a **zinc-50 plate** inside the iframe, then runs the **Aceternity registry** stack ([`aurora-background.json`](https://ui.aceternity.com/registry/aurora-background.json)): **`blur(10px) invert(1)`** on the base layer, **unblurred** motion + **`mix-blend-difference`**, **group `opacity: 0.5`** on the aurora stack (unless you add **`?soft=1`**, which switches the motion layer to `mix-blend-normal` + lower opacity). Vignette: **`radial-gradient(ellipse at 100% 0%, …)`** via **`mask-image` and `-webkit-mask-image`**. Base filters use **`!important`** so Framer’s webview still applies blur/invert.
 
 **Still flat / no motion?** Open the embed URL **alone** in Chrome. Look for **`aurora-21st-motion`** — computed **`animation`** should be **`aurora 60s linear infinite`**. If **`filter: blur`** is missing on **`aurora-21st-base`**, hard-refresh or confirm the latest Pages deploy.
 

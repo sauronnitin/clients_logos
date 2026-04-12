@@ -164,23 +164,22 @@
 }
 
 /*
- * /embed/aurora: same blur+invert as main Aceternity / 21st.dev stack; !important survives Framer webview.
+ * /embed/aurora: Aceternity registry parity — base is blur(10px) invert (see registry JSON).
+ * !important helps Framer’s webview still apply filters.
  */
 @layer components {
   .aurora-21st-base {
-    filter: blur(40px) invert(1) !important;
-    -webkit-filter: blur(40px) invert(1) !important;
+    filter: blur(10px) invert(1) !important;
+    -webkit-filter: blur(10px) invert(1) !important;
     transform: translateZ(0);
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
   }
 
-  /* Feather moving stripes so difference-blend does not read as hard diagonal cuts. */
+  /* Registry: motion is unblurred; only `animate-aurora` + backgrounds + mix-blend-difference. */
   .aurora-21st-motion {
     animation: aurora 60s linear infinite;
-    will-change: background-position, filter;
-    filter: blur(18px) !important;
-    -webkit-filter: blur(18px) !important;
+    will-change: background-position;
   }
 }
 
