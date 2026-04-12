@@ -27,6 +27,17 @@ Use this when you want the **animated aurora** behind a Framer section (no hero 
    Framer docs: [Disable pointer events](https://www.framer.com/help/articles/disable-pointer-events/)
 6. Publish and test on the **live** site (preview can differ).
 
+#### Can’t see hero text or buttons (empty hero, only nav or background)
+
+The hosted page is **only** the moving gradient. Your headline, body, and **Book a call** must stay **native Framer layers**. The Embed is a **full rectangle of pixels** (zinc + aurora): anything Framer draws **under** that rectangle in the stack is **hidden**, not “behind” it in a see-through sense.
+
+1. Open **Layers** for the **hero section** (not the whole page only). Drag the **Embed** to the **very bottom** of that section so **every** text frame, button, and image you care about is **above** it in the list (higher = paints on top).
+2. If the Embed is **Fixed** to the viewport, it often stacks **above** in-flow hero content. Either switch it to **Relative** / **Absolute** inside the hero frame only, **or** select the **group or frame** that contains badge + headline + body + CTAs → **Styles → + → z-index** → e.g. **10**. Keep the Embed at **0** or unset.
+3. Set **Pointer events → None** on the Embed so taps reach buttons (this does not fix paint order; step 1–2 do).
+4. Temporarily **hide** the Embed layer: if hero copy reappears, the stack order was wrong.
+
+A **duplicate avatar** or other stray UI is usually a second copy of a component or a **fixed** nav spanning breakpoints—search the layer list for duplicates and check **position** on each breakpoint.
+
 #### Headline / badge / body look “under” the glow (hazy or dark blobs on letters)
 
 Framer’s **Embed** only loads the page at  
