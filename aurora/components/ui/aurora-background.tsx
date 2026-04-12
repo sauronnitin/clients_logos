@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils"
 import type { HTMLAttributes, ReactNode } from "react"
 
 export interface AuroraBackgroundProps extends HTMLAttributes<HTMLDivElement> {
-  children: ReactNode
+  children?: ReactNode
   showRadialGradient?: boolean
 }
 
