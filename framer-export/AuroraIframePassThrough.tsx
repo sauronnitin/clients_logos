@@ -29,6 +29,8 @@ export default function AuroraIframePassThrough({
         position: "relative",
         overflow: "hidden",
         pointerEvents: "none",
+        isolation: "isolate",
+        mixBlendMode: "normal",
       }}
     >
       <iframe

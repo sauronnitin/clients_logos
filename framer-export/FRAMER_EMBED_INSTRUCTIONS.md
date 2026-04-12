@@ -37,7 +37,9 @@ If you do not see Pointer events on the Embed, or it still blocks clicks:
 2. On canvas, size it like a full-bleed background and place it **behind** hero content in **Layers**.
 3. Set **Aurora URL** in the properties panel to your deployed `/embed/aurora` URL.
 
-The component sets `pointer-events: none` on both the wrapper and the **iframe** in Framer’s DOM, which is what actually lets “Book a call” and other native controls work.
+The component sets `pointer-events: none` on both the wrapper and the **iframe** in Framer’s DOM, which is what actually lets “Book a call” and other native controls work. The wrapper also uses **`isolation: isolate`** so the hosted page’s blend modes stay inside the iframe bitmap and your Framer text stays crisp on top.
+
+The **GitHub Pages** `/embed/aurora` route applies the same idea inside the iframe (`isolate` on `html`/`body` via `data-embed-transparent`, plus embed layout + `AuroraBackground`). Re-sync the Code file after repo updates, then redeploy Pages so the hosted document matches.
 
 ---
 
