@@ -1,7 +1,19 @@
 "use client"
 
 import { cn } from "@/lib/utils"
-import type { HTMLAttributes, ReactNode } from "react"
+import type { CSSProperties, HTMLAttributes, ReactNode } from "react"
+
+/** Literal hex gradients for Framer embed — avoids var(--blue-500) failing if chunks reorder. */
+const EMBED_STRIPE_GRADIENT =
+  "repeating-linear-gradient(100deg, rgba(255,255,255,0.58) 0%, rgba(255,255,255,0.58) 8%, transparent 11%, transparent 14%, rgba(255,255,255,0.42) 18%)"
+const EMBED_COLOR_GRADIENT =
+  "repeating-linear-gradient(100deg, #3b82f6 8%, #a5b4fc 13%, #93c5fd 20%, #ddd6fe 26%, #60a5fa 32%)"
+
+function embedLayerBackground(): CSSProperties {
+  return {
+    backgroundImage: `${EMBED_STRIPE_GRADIENT}, ${EMBED_COLOR_GRADIENT}`,
+  }
+}
 
 export interface AuroraBackgroundProps extends HTMLAttributes<HTMLDivElement> {
   children?: ReactNode
@@ -78,32 +90,9 @@ export function AuroraBackground({
       ) : null}
       <div className="pointer-events-none absolute inset-0 z-[1] origin-center isolate scale-x-[-1] overflow-hidden">
         {embedLightPipeline ? (
-          /*
-           * Framer iframe (WebKit): `background-position` animation on ::after under the same node as
-           * `filter: blur()` often does not run. Split blur (static) vs motion (real div + animate-aurora-embed).
-           */
-          <div
-            className={cn(
-              "pointer-events-none absolute inset-0",
-              gradientVars
-            )}
-          >
-            <div
-              className={cn(
-                "pointer-events-none absolute -inset-[10px] opacity-[0.78] blur-[40px] filter",
-                "[background-image:var(--white-gradient),var(--aurora)]",
-                "[background-size:300%,_200%]",
-                "[background-position:50%_50%,50%_50%]"
-              )}
-            />
-            <div
-              className={cn(
-                "pointer-events-none absolute inset-0 opacity-[0.62] mix-blend-normal animate-aurora-embed blur-md will-change-[background-position]",
-                "[background-image:var(--white-gradient),var(--aurora)]",
-                "[background-size:200%,_100%]",
-                "[background-attachment:scroll]"
-              )}
-            />
+          <div className="pointer-events-none absolute inset-0">
+            <div className="aurora-embed-static" style={embedLayerBackground()} />
+            <div className="aurora-embed-motion" style={embedLayerBackground()} />
           </div>
         ) : (
           <div

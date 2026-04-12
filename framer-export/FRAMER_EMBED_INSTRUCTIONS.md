@@ -62,6 +62,8 @@ The hosted `/embed/aurora` route paints a **zinc-50 plate inside the iframe** an
 
 The embed **does not** use the main site’s tight **top-right radial mask** — that mask hid almost everything on a full-bleed Framer hero (especially on the left). The iframe uses a **full-frame** wash so blue/lavender blurs read across the whole embed area.
 
+**Still flat / no motion?** Open the embed URL **alone** in Chrome (not inside Framer). In DevTools → Elements, find a `div` with class **`aurora-embed-motion`** — it should list `animation: aurora 28s linear infinite` in computed styles. If that class is missing, GitHub Pages is still serving an old export; trigger a deploy. If the class exists but `animation` is none, check **Windows Settings → Accessibility → Visual effects → Animation effects** (off can limit motion).
+
 #### Framer Embed only offers Fixed / Relative height (no Fill / Auto)
 
 Set a **fixed height in px** that matches your hero frame (often **720–900**; tweak until the glow is not clipped). **Width** can be **100%** or full bleed. Position the embed **inside** the hero section; avoid full-viewport **fixed** unless you also raise `z-index` on the text stack (see `AURORA_HERO_STACKING_PLAN.md`).

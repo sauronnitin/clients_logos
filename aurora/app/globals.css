@@ -165,6 +165,38 @@
   }
 }
 
+/*
+ * /embed/aurora (Framer iframe): plain classes so blur + background-position animation
+ * always apply. Relying only on Tailwind utilities inside iframes has been unreliable
+ * (missing rules / compositing). Gradients are set inline from AuroraBackground.
+ */
+@layer components {
+  .aurora-embed-static {
+    pointer-events: none;
+    position: absolute;
+    inset: -10px;
+    opacity: 0.82;
+    filter: blur(42px);
+    -webkit-filter: blur(42px);
+    background-size: 300% 200%;
+    background-position: 50% 50%, 50% 50%;
+  }
+
+  .aurora-embed-motion {
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    opacity: 0.7;
+    mix-blend-mode: normal;
+    background-size: 200% 100%;
+    background-position: 50% 50%, 50% 50%;
+    background-attachment: scroll;
+    animation: aurora 28s linear infinite;
+    will-change: background-position;
+    transform: translateZ(0);
+  }
+}
+
 @keyframes integration-scroll-left {
   0% {
     transform: translateX(0);
