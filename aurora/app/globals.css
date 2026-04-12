@@ -147,6 +147,8 @@
   html[data-embed-transparent="true"],
   html[data-embed-transparent="true"] body {
     background-color: transparent !important;
+    /* Let clicks reach Framer layers above/beside the decorative iframe */
+    pointer-events: none !important;
   }
 }
 

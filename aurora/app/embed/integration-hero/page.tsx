@@ -9,5 +9,9 @@ export const metadata: Metadata = {
 }
 
 export default function EmbedIntegrationHeroPage() {
-  return <IntegrationHero />
+  return (
+    <div className="pointer-events-auto">
+      <IntegrationHero />
+    </div>
+  )
 }

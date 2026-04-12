@@ -23,7 +23,7 @@ export function AuroraBackground({
         "relative flex h-[100vh] flex-col items-center justify-center text-slate-950 transition-colors",
         !transparentBase &&
           "bg-zinc-50 dark:bg-zinc-900",
-        transparentBase && "bg-transparent dark:bg-transparent",
+        transparentBase && "pointer-events-none bg-transparent dark:bg-transparent",
         className
       )}
       {...props}

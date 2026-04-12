@@ -19,6 +19,13 @@ Use this when you want the **animated aurora** behind a Framer section (no hero 
 6. **Layer order:** An iframe is a **rectangle of pixels**, not a Photoshop mask. Anything **behind** the Embed in Framer is **hidden** unless the iframe’s page leaves areas transparent. The deployed `/embed/aurora` route uses a **transparent** `html`/`body` and **no solid zinc fill** so Framer content **below** the Embed can show through where the glow is thin or masked—but the blurred gradient still covers a lot of the area. For **crisp** logos or a marquee, place those layers **above** the Embed (higher in the layer list), not underneath.
 7. Publish and test on the live Framer site.
 
+### If “Book a call” (or any Framer button) does not click
+
+The **Embed** is still a full rectangle in the layer stack. After deploy, `/embed/aurora` uses **`pointer-events: none`** on the iframe document so clicks pass through to Framer content **on top** of the embed. If a button still ignores clicks:
+
+- In **Layers**, move the Embed **below** the CTA and text (lower in the list = farther back).
+- Or select the Embed → **Effects** (or style overrides) → set **pointer events** to **None** if Framer exposes it.
+
 ### Without an iframe (Code / native)
 
 - Copy the plain-CSS reference from [`aurora-framer-reference.tsx`](aurora-framer-reference.tsx) into a **Framer Code** component, or rebuild the look with **gradients + blur** on a full-bleed frame (no Tailwind in Code).
