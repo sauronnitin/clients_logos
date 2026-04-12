@@ -56,7 +56,7 @@ Aurora + hero must stay **correct at each breakpoint** you ship (e.g. Desktop / 
 | # | Action | Pass criteria |
 |---|--------|----------------|
 | B1 | Select the **container** that holds text + marquee (and soon 21st.dev block). In **Styles → +**, add **`z-index`** (try **1**, then **10** if needed). | That stack paints **above** the iframe. |
-| B2 | Ensure the Embed / iframe wrapper has **lower** z-index (0 or auto) or no z-index. | Clear ordering: content > aurora. |
+| B2 | Ensure the Embed / iframe wrapper has **lower** z-index (**0** or **auto**). **Do not use z-index: -1** on the Embed — it paints **under the section background** so the aurora looks missing or “not animating.” | Clear ordering: content > aurora; iframe stays visible. |
 | B3 | If the hero **Section** has `overflow: hidden` or odd `clip`, confirm it’s not clipping the wrong subtree. | No accidental clipping of text or marquee. |
 
 **References:** [MDN stacking context](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_positioned_layout/Understanding_z-order/Stacking_context).

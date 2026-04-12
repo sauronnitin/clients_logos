@@ -92,7 +92,7 @@ The component defaults to **`transparentBase`** so your Framer section backgroun
 
 ### Layer order reminder
 
-An iframe is a **rectangle of pixels**. The hosted `/embed/aurora` page uses a **transparent** `html`/`body` and no solid base so, visually, Framer layers **behind** the iframe can show through in softer areas—but **clicks** still require **Pointer events: None** (Option A) or **Option B/C** above. Put logos, marquees, and CTAs **above** the aurora layer in the layer list.
+An iframe is a **rectangle of pixels**. The hosted `/embed/aurora` route keeps `html`/`body` pointer-transparent for Framer, but paints a **zinc-50 plate + aurora inside the iframe** (not a see-through hole). Framer layers must still sit **above** the Embed in the layer list to stay visible; **clicks** require **Pointer events: None** (Option A) or **Option B/C** above.
 
 ---
 
