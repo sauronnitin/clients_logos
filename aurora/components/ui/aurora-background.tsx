@@ -28,7 +28,7 @@ export function AuroraBackground({
       )}
       {...props}
     >
-      <div className="absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0 origin-center scale-x-[-1] overflow-hidden">
         <div
           className={cn(
             `

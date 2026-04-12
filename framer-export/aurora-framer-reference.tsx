@@ -70,6 +70,8 @@ const css = `
   inset: 0;
   overflow: hidden;
   pointer-events: none;
+  transform: scaleX(-1);
+  transform-origin: center center;
 }
 
 .aurora-framer-base {
