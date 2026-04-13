@@ -181,10 +181,6 @@
     will-change: background-position;
   }
 
-  /* Clients marquee embed — pause infinite scroll while hovering (inspect logos / click) */
-  .clients-marquee-root:hover .clients-marquee-track {
-    animation-play-state: paused;
-  }
 }
 
 @keyframes integration-scroll-left {
