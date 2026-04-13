@@ -122,7 +122,7 @@ Confirm the URL loads the hero full-width with no extra chrome.
 
 ## Clients logo marquee (`/embed/clients-marquee`)
 
-**Ruixenui-style** dual-row infinite marquee: **logo bubbles only** (no headline/CTA). Logos and links come from **`framer-export/cms-clients.json`** at **build time**.
+**Ruixenui-style** infinite marquee: **one row** of larger logo bubbles only (no headline/CTA). Logos and links come from **`framer-export/cms-clients.json`** at **build time** (row1 + row2 merged into a single strip). **Hover** over the strip **pauses** the scroll so users can click a logo.
 
 **Path:** `/embed/clients-marquee`
 
@@ -135,7 +135,7 @@ Confirm the URL loads the hero full-width with no extra chrome.
 
 **Framer:** Use the Code component **[`ClientsMarqueeIframe.tsx`](./ClientsMarqueeIframe.tsx)** (not the aurora pass-through). This iframe keeps **`pointer-events: auto`** so each logo **link** works.
 
-**Sizing:** Use a **shorter** frame than the full integration hero — start around **220–280px** height, full width; adjust if rows clip.
+**Sizing:** The page uses **`min-height: 100dvh`** inside the iframe so the block **fills the iframe height** Framer gives you; set the Code/embed frame height to match your section (taller frames work better with **112px-class bubbles**). Full width; increase height if the row clips vertically.
 
 **Edge fades** assume a **light** area behind the iframe (`from-white`). If your Framer section uses another color, match it in `clients-marquee-embed.tsx` or we can add a query param later.
 
