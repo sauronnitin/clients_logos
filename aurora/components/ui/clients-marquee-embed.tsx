@@ -16,19 +16,16 @@ function doubleStrip(items: ClientLogo[]): ClientLogo[] {
   return [...items, ...items]
 }
 
-/** 1.5× prior tab sizes; Thermax SVG stays at previous scale so it doesn’t dominate. */
-function bubbleClasses(slug: string): string {
-  if (slug === "thermax") {
-    return "h-28 w-28"
-  }
-  return "h-[10.5rem] w-[10.5rem]"
-}
+/** Same bubble for everyone; only the logo graphic scales (1.5× except Thermax). */
+const BUBBLE_CLASS =
+  "flex h-28 w-28 shrink-0 items-center justify-center overflow-hidden rounded-full bg-white shadow-md ring-1 ring-black/5 dark:bg-neutral-200 dark:ring-white/10"
 
-function imgClasses(slug: string): string {
+function logoImgClass(slug: string): string {
+  const base = "h-[4.5rem] w-[4.5rem] object-contain p-1"
   if (slug === "thermax") {
-    return "h-[4.5rem] w-[4.5rem]"
+    return base
   }
-  return "h-[6.75rem] w-[6.75rem]"
+  return `${base} origin-center scale-150`
 }
 
 export default function ClientsMarqueeEmbed() {
@@ -46,12 +43,8 @@ export default function ClientsMarqueeEmbed() {
         onPointerLeave={() => setMarqueePaused(false)}
       >
         <div className="relative overflow-hidden py-4">
-          {/*
-            w-max + flex-nowrap: one horizontal strip.
-            animationPlayState via React so pause wins over Tailwind animation shorthand (Framer iframe).
-          */}
           <div
-            className="clients-marquee-track animate-integration-scroll-left flex w-max max-w-none flex-nowrap gap-[4.5rem]"
+            className="clients-marquee-track animate-integration-scroll-left flex w-max max-w-none flex-nowrap gap-12"
             style={{
               animationPlayState: marqueePaused ? "paused" : "running",
             }}
@@ -62,14 +55,14 @@ export default function ClientsMarqueeEmbed() {
                 href={client.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`flex shrink-0 items-center justify-center rounded-full bg-white shadow-md ring-1 ring-black/5 dark:bg-neutral-200 dark:ring-white/10 ${bubbleClasses(client.slug)}`}
+                className={BUBBLE_CLASS}
                 aria-label={client.title}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element -- remote Framer CMS URLs; avoid Image remote config */}
                 <img
                   src={client.image}
                   alt=""
-                  className={`object-contain p-1 ${imgClasses(client.slug)}`}
+                  className={logoImgClass(client.slug)}
                   loading="lazy"
                   decoding="async"
                 />
@@ -77,8 +70,8 @@ export default function ClientsMarqueeEmbed() {
             ))}
           </div>
 
-          <div className="pointer-events-none absolute top-0 left-0 h-full w-40 bg-gradient-to-r from-white to-transparent dark:from-neutral-950" />
-          <div className="pointer-events-none absolute top-0 right-0 h-full w-40 bg-gradient-to-l from-white to-transparent dark:from-neutral-950" />
+          <div className="pointer-events-none absolute top-0 left-0 h-full w-28 bg-gradient-to-r from-white to-transparent dark:from-neutral-950" />
+          <div className="pointer-events-none absolute top-0 right-0 h-full w-28 bg-gradient-to-l from-white to-transparent dark:from-neutral-950" />
         </div>
       </div>
     </section>
