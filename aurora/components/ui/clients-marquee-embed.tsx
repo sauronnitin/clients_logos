@@ -24,7 +24,11 @@ export default function ClientsMarqueeEmbed() {
     <section className="flex min-h-0 w-full flex-1 flex-col justify-center bg-transparent">
       <div className="clients-marquee-root relative mx-auto w-full max-w-7xl px-6">
         <div className="relative overflow-hidden py-4">
-          <div className="clients-marquee-track animate-integration-scroll-left flex gap-12 whitespace-nowrap">
+          {/*
+            w-max + flex-nowrap: one horizontal strip. A full-width flex row can wrap bubbles
+            onto a second line in a narrow iframe (looks like “two rows”).
+          */}
+          <div className="clients-marquee-track animate-integration-scroll-left flex w-max max-w-none flex-nowrap gap-12">
             {doubleStrip(allLogos).map((client, i) => (
               <a
                 key={`${client.slug}-${i}`}
