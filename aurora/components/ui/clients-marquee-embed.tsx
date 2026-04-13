@@ -70,8 +70,7 @@ export default function ClientsMarqueeEmbed() {
             ))}
           </div>
 
-          <div className="pointer-events-none absolute top-0 left-0 h-full w-28 bg-gradient-to-r from-white to-transparent dark:from-neutral-950" />
-          <div className="pointer-events-none absolute top-0 right-0 h-full w-28 bg-gradient-to-l from-white to-transparent dark:from-neutral-950" />
+          {/* Transparent section background for embed hosts (GitHub Pages + Framer). */}
         </div>
       </div>
     </section>
