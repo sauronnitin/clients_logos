@@ -17,8 +17,8 @@ After the first successful run, Pages shows your site URL (often `https://<user>
 
 | Repo type | Site base | Embed URL example |
 |-----------|-----------|-------------------|
-| Normal project repo | `https://<user>.github.io/<repository>/` | `https://<user>.github.io/<repository>/embed/integration-hero` |
-| Repo named `<user>.github.io` | `https://<user>.github.io/` | `https://<user>.github.io/embed/integration-hero` |
+| Normal project repo | `https://<user>.github.io/<repository>/` | `…/embed/integration-hero`, `…/embed/clients-marquee` |
+| Repo named `<user>.github.io` | `https://<user>.github.io/` | `…/embed/integration-hero`, `…/embed/clients-marquee` |
 
 The workflow sets **`NEXT_PUBLIC_BASE_PATH`** automatically: `/` + repository name for project sites, or empty for a `*.github.io` repository name.
 

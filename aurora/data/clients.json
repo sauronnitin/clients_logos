@@ -1,0 +1,92 @@
+{
+  "generatedAt": "2026-04-13T02:02:59.932Z",
+  "source": "framer-export/cms-clients.json",
+  "row1": [
+    {
+      "id": "Hl2Blo9pz",
+      "slug": "tokyo-keiki",
+      "title": "Tokyo Keiki",
+      "image": "https://framerusercontent.com/images/7dk3jHvxkpLS9sZYob9BCvUbDo.png",
+      "link": "https://www.tokyokeiki.jp/e/products/detail.html?pdid=289"
+    },
+    {
+      "id": "PVDP25tRR",
+      "slug": "hindware",
+      "title": "Hindware",
+      "image": "https://framerusercontent.com/images/gvx92v1JyT8PK54RwCIBzL4Llhw.png",
+      "link": "https://hindware.com/"
+    },
+    {
+      "id": "nSDoFnkRU",
+      "slug": "bajaj-electricals",
+      "title": "Bajaj Electricals",
+      "image": "https://framerusercontent.com/images/4cpxhqkZHmZXp0QsbmPrSAt8hk.png",
+      "link": "https://www.bajajelectricals.com/"
+    },
+    {
+      "id": "phTUvkrBE",
+      "slug": "wego",
+      "title": "Weigao",
+      "image": "https://framerusercontent.com/images/DIkXOBFKkJtsfT7ClZMybQhuZc.png",
+      "link": "https://www.wegomedical.com/"
+    },
+    {
+      "id": "mZwMbTDTN",
+      "slug": "hero-electronix",
+      "title": "Hero Electronix",
+      "image": "https://framerusercontent.com/images/oxJsc7qUIxdH6d7XJbOvQQEao.png",
+      "link": "https://www.heroelectronix.com/"
+    },
+    {
+      "id": "uYCXhwNVX",
+      "slug": "tmmc",
+      "title": "The Marine Mammal Center",
+      "image": "https://framerusercontent.com/images/WUlSFyYs2jhnQw98Alv9VHTpCa8.png",
+      "link": "https://www.marinemammalcenter.org/"
+    }
+  ],
+  "row2": [
+    {
+      "id": "UugfELQE8",
+      "slug": "thermax",
+      "title": "Thermax",
+      "image": "https://framerusercontent.com/images/SWyMI7WvbxVrjGoeJlhFBXszCRE.svg",
+      "link": "https://www.thermaxglobal.com/"
+    },
+    {
+      "id": "x8xFuIYJ2",
+      "slug": "btg",
+      "title": "Blue Tees Golf",
+      "image": "https://framerusercontent.com/images/W9ONkFM8qT4hkPNvXrBHBbvL6o.svg",
+      "link": "https://blueteesgolf.com/"
+    },
+    {
+      "id": "gd9E_uZGw",
+      "slug": "morphy-richards",
+      "title": "Morphy Richards",
+      "image": "https://framerusercontent.com/images/exFWz59UU8ob2PBB1VwdTp9E.png",
+      "link": "https://morphyrichards.com/"
+    },
+    {
+      "id": "TNOzWT0jp",
+      "slug": "ambee",
+      "title": "Ambee",
+      "image": "https://framerusercontent.com/images/ZCDEDMalHWGTG00XIRQeDzaT0qM.png",
+      "link": "https://www.getambee.com/"
+    },
+    {
+      "id": "LjQIc3OJN",
+      "slug": "somfy",
+      "title": "Somfy",
+      "image": "https://framerusercontent.com/images/6R7WxLE1QMLfdXwWz5spWTxHsQ.png",
+      "link": "https://www.somfysystems.com/en-us/"
+    },
+    {
+      "id": "R6baVOJjp",
+      "slug": "upright-education",
+      "title": "Upright Education",
+      "image": "https://framerusercontent.com/images/JYZjJASzxRCyFB67yqXu2xRoCqw.png",
+      "link": "https://huggl.framer.website/"
+    }
+  ]
+}

@@ -118,6 +118,29 @@ The `aurora` app also exposes a **minimal page** for the integrations hero:
 
 Confirm the URL loads the hero full-width with no extra chrome.
 
+---
+
+## Clients logo marquee (`/embed/clients-marquee`)
+
+**Ruixenui-style** dual-row infinite marquee: **logo bubbles only** (no headline/CTA). Logos and links come from **`framer-export/cms-clients.json`** at **build time**.
+
+**Path:** `/embed/clients-marquee`
+
+**Regenerate data before build:** from `aurora/`, `npm run generate:clients` (also runs automatically as **`prebuild`**). Commit updated `aurora/data/clients.json` when you change the CMS export.
+
+**Deployed URL examples** (same base as aurora):
+
+- `https://<user>.github.io/<repository>/embed/clients-marquee`
+- `https://<user>.github.io/embed/clients-marquee` (user site repo)
+
+**Framer:** Use the Code component **[`ClientsMarqueeIframe.tsx`](./ClientsMarqueeIframe.tsx)** (not the aurora pass-through). This iframe keeps **`pointer-events: auto`** so each logo **link** works.
+
+**Sizing:** Use a **shorter** frame than the full integration hero — start around **220–280px** height, full width; adjust if rows clip.
+
+**Edge fades** assume a **light** area behind the iframe (`from-white`). If your Framer section uses another color, match it in `clients-marquee-embed.tsx` or we can add a query param later.
+
+---
+
 ## Add the embed in Framer
 
 1. In Framer, insert **Embed** (or **Utility → Embed**).

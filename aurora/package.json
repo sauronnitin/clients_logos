@@ -5,6 +5,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
+    "generate:clients": "node ../scripts/generate-clients-data.cjs",
+    "prebuild": "node ../scripts/generate-clients-data.cjs",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",

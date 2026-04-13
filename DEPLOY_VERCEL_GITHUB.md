@@ -35,7 +35,7 @@ Vercel will run `npm install` and `npm run build` inside `aurora` on every push 
 
 After deploy, your embed URL is:
 
-`https://<your-vercel-domain>/embed/integration-hero`
+`https://<your-vercel-domain>/embed/integration-hero` or `…/embed/clients-marquee`
 
 Use that in Framer’s **Embed** block. If the iframe is blocked, add your Framer site origin to `frame-ancestors` in [`aurora/next.config.mjs`](aurora/next.config.mjs).
 
