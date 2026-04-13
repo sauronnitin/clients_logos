@@ -16,7 +16,7 @@ function doubleStrip(items: ClientLogo[]): ClientLogo[] {
   return [...items, ...items]
 }
 
-/** Same bubble for everyone; only the logo graphic scales (1.5× except Thermax). */
+/** Same bubble for everyone; only the logo graphic scales (1.25× except Thermax). */
 const BUBBLE_CLASS =
   "flex h-28 w-28 shrink-0 items-center justify-center overflow-hidden rounded-full bg-white shadow-md ring-1 ring-black/5 dark:bg-neutral-200 dark:ring-white/10"
 
@@ -25,7 +25,7 @@ function logoImgClass(slug: string): string {
   if (slug === "thermax") {
     return base
   }
-  return `${base} origin-center scale-150`
+  return `${base} origin-center scale-125`
 }
 
 export default function ClientsMarqueeEmbed() {
