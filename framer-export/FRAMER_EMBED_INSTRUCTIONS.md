@@ -137,7 +137,7 @@ Confirm the URL loads the hero full-width with no extra chrome.
 
 **Sizing:** The page uses **`min-height: 100dvh`** inside the iframe so the block **fills the iframe height** Framer gives you; set the Code/embed frame height to match your section (often **200–280px** for one row; go taller if logos clip). Full width.
 
-**Edge fades** assume a **light** area behind the iframe (`from-white`). If your Framer section uses another color, match it in `clients-marquee-embed.tsx` or we can add a query param later.
+The marquee embed sets **`data-embed-transparent`** on `html` (same as `/embed/aurora`) so **`html`/`body` stay transparent** and your Framer section color shows through the iframe.
 
 ---
 
