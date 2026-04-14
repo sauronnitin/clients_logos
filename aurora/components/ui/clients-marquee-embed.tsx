@@ -1,6 +1,6 @@
 "use client"
 
-import clientsPayload from "@/data/clients.json"
+import clientsPayload from "../../data/clients.json"
 import { useState } from "react"
 
 export type ClientLogo = {
@@ -16,12 +16,9 @@ function doubleStrip(items: ClientLogo[]): ClientLogo[] {
   return [...items, ...items]
 }
 
-/** Same bubble for everyone; only the logo graphic scales (1.25× except Thermax). */
-const BUBBLE_CLASS =
-  "flex h-28 w-28 shrink-0 items-center justify-center overflow-hidden rounded-full bg-white shadow-md ring-1 ring-black/5 dark:bg-neutral-200 dark:ring-white/10"
-
 function logoImgClass(slug: string): string {
-  const base = "h-[4.5rem] w-[4.5rem] object-contain p-1"
+  const base =
+    "h-[4.5rem] w-[4.5rem] object-contain p-1 grayscale opacity-80 transition duration-300 ease-out group-hover:grayscale-0 group-hover:opacity-100 group-focus-visible:grayscale-0 group-focus-visible:opacity-100"
   if (slug === "thermax") {
     return base
   }
@@ -55,7 +52,7 @@ export default function ClientsMarqueeEmbed() {
                 href={client.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={BUBBLE_CLASS}
+                className="group flex h-28 w-28 shrink-0 items-center justify-center overflow-hidden"
                 aria-label={client.title}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element -- remote Framer CMS URLs; avoid Image remote config */}

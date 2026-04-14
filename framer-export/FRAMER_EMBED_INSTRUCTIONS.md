@@ -122,7 +122,7 @@ Confirm the URL loads the hero full-width with no extra chrome.
 
 ## Clients logo marquee (`/embed/clients-marquee`)
 
-**Ruixenui-style** infinite marquee: **one row** of larger logo bubbles only (no headline/CTA). Logos and links come from **`framer-export/cms-clients.json`** at **build time** (row1 + row2 merged into a single strip). **Hover** over the strip **pauses** the scroll so users can click a logo.
+**Ruixenui-style** infinite marquee: **one row** of logos (no circular cards, no headline/CTA). Logos and links come from **`framer-export/cms-clients.json`** at **build time** (row1 + row2 merged into a single strip). **Hover** over the strip **pauses** the scroll so users can click a logo.
 
 **Path:** `/embed/clients-marquee`
 
@@ -133,9 +133,9 @@ Confirm the URL loads the hero full-width with no extra chrome.
 - `https://<user>.github.io/<repository>/embed/clients-marquee`
 - `https://<user>.github.io/embed/clients-marquee` (user site repo)
 
-**Framer:** Use the Code component **[`ClientsMarqueeIframe.tsx`](./ClientsMarqueeIframe.tsx)** (not the aurora pass-through). This iframe keeps **`pointer-events: auto`** so each logo **link** works.
+**Framer:** Use a Code component from **[`ClientsMarqueeIframe.tsx`](./ClientsMarqueeIframe.tsx)** or **[`ClientsMarqueeSingleRow.tsx`](./ClientsMarqueeSingleRow.tsx)** (same iframe behavior; use **Single Row** if your Framer asset is named “Clients marquee single row”). Do **not** paste the Next file `aurora/components/ui/clients-marquee-embed.tsx` into Framer — it imports JSON and path aliases and will throw bundler errors (e.g. `normalizePath`). This iframe keeps **`pointer-events: auto`** so each logo **link** works.
 
-**Sizing:** The page uses **`min-height: 100dvh`** inside the iframe so the block **fills the iframe height** Framer gives you; set the Code/embed frame height to match your section (taller frames work better with **112px-class bubbles**). Full width; increase height if the row clips vertically.
+**Sizing:** The page uses **`min-height: 100dvh`** inside the iframe so the block **fills the iframe height** Framer gives you; set the Code/embed frame height to match your section (often **200–280px** for one row; go taller if logos clip). Full width.
 
 **Edge fades** assume a **light** area behind the iframe (`from-white`). If your Framer section uses another color, match it in `clients-marquee-embed.tsx` or we can add a query param later.
 
