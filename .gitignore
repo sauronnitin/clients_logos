@@ -1,3 +1,12 @@
+# Root (Playwright + future shared tooling)
+/node_modules/
+
+# Playwright
+/playwright-report/
+/test-results/
+/blob-report/
+/playwright/.cache/
+
 # Aurora (Next.js)
 aurora/node_modules/
 aurora/.next/

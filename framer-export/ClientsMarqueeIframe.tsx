@@ -1,75 +1,60 @@
-"use client"
+import { addPropertyControls, ControlType } from "framer"
+import * as React from "react"
 
-import clientsPayload from "@/data/clients.json"
-import { useState } from "react"
+/**
+ * Legacy Framer component name kept for backwards compatibility in existing files.
+ *
+ * This component intentionally mirrors `ClientsMarqueeSingleRow.tsx` and only embeds
+ * the hosted `/embed/clients-marquee` page in an iframe.
+ */
+const DEFAULT_CLIENTS_MARQUEE_EMBED =
+  "https://sauronnitin.github.io/clients_logos/embed/clients-marquee"
 
-export type ClientLogo = {
-  id: string
-  slug: string
-  title: string
-  image: string
-  link: string
-}
-
-/** Two copies so translateX(-50%) loops seamlessly. */
-function doubleStrip(items: ClientLogo[]): ClientLogo[] {
-  return [...items, ...items]
-}
-
-function logoImgClass(slug: string): string {
-  const base =
-    "h-[4.5rem] w-[4.5rem] object-contain p-1 grayscale opacity-80 transition duration-300 ease-out group-hover:grayscale-0 group-hover:opacity-100 group-focus-visible:grayscale-0 group-focus-visible:opacity-100"
-  if (slug === "thermax") {
-    return base
-  }
-  return `${base} origin-center scale-125`
-}
-
-export default function ClientsMarqueeEmbed() {
-  const [marqueePaused, setMarqueePaused] = useState(false)
-
-  const row1 = clientsPayload.row1 as ClientLogo[]
-  const row2 = clientsPayload.row2 as ClientLogo[]
-  const allLogos: ClientLogo[] = [...row1, ...row2]
-
+export default function ClientsMarqueeIframe({
+  src = DEFAULT_CLIENTS_MARQUEE_EMBED,
+  title = "Client logos",
+}: {
+  src?: string
+  title?: string
+}) {
   return (
-    <section className="flex min-h-0 w-full flex-1 flex-col justify-center bg-transparent">
-      <div
-        className="clients-marquee-root relative mx-auto w-full max-w-7xl px-6"
-        onPointerEnter={() => setMarqueePaused(true)}
-        onPointerLeave={() => setMarqueePaused(false)}
-      >
-        <div className="relative overflow-hidden py-4">
-          <div
-            className="clients-marquee-track animate-integration-scroll-left flex w-max max-w-none flex-nowrap gap-12"
-            style={{
-              animationPlayState: marqueePaused ? "paused" : "running",
-            }}
-          >
-            {doubleStrip(allLogos).map((client, i) => (
-              <a
-                key={`${client.slug}-${i}`}
-                href={client.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex h-28 w-28 shrink-0 items-center justify-center overflow-hidden"
-                aria-label={client.title}
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element -- remote Framer CMS URLs; avoid Image remote config */}
-                <img
-                  src={client.image}
-                  alt=""
-                  className={logoImgClass(client.slug)}
-                  loading="lazy"
-                  decoding="async"
-                />
-              </a>
-            ))}
-          </div>
-
-          {/* Transparent section background for embed hosts (GitHub Pages + Framer). */}
-        </div>
-      </div>
-    </section>
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        minHeight: "100%",
+        position: "relative",
+        zIndex: 0,
+        overflow: "hidden",
+      }}
+    >
+      <iframe
+        title={title}
+        src={src}
+        style={{
+          position: "absolute",
+          inset: 0,
+          width: "100%",
+          height: "100%",
+          border: "none",
+        }}
+        loading="lazy"
+        referrerPolicy="strict-origin-when-cross-origin"
+      />
+    </div>
   )
 }
+
+addPropertyControls(ClientsMarqueeIframe, {
+  src: {
+    type: ControlType.String,
+    title: "Marquee URL",
+    defaultValue: DEFAULT_CLIENTS_MARQUEE_EMBED,
+    displayTextArea: true,
+  },
+  title: {
+    type: ControlType.String,
+    title: "Accessible name",
+    defaultValue: "Client logos",
+  },
+})

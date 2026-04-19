@@ -133,11 +133,11 @@ Confirm the URL loads the hero full-width with no extra chrome.
 - `https://<user>.github.io/<repository>/embed/clients-marquee`
 - `https://<user>.github.io/embed/clients-marquee` (user site repo)
 
-**Framer:** Use a Code component from **[`ClientsMarqueeIframe.tsx`](./ClientsMarqueeIframe.tsx)** or **[`ClientsMarqueeSingleRow.tsx`](./ClientsMarqueeSingleRow.tsx)** (same iframe behavior; use **Single Row** if your Framer asset is named “Clients marquee single row”). Do **not** paste the Next file `aurora/components/ui/clients-marquee-embed.tsx` into Framer — it imports JSON and path aliases and will throw bundler errors (e.g. `normalizePath`). This iframe keeps **`pointer-events: auto`** so each logo **link** works.
+**Framer:** Use a Code component from **[`ClientsMarqueeSingleRow.tsx`](./ClientsMarqueeSingleRow.tsx)** (canonical) or **[`ClientsMarqueeIframe.tsx`](./ClientsMarqueeIframe.tsx)** (legacy-compatible alias with the same iframe behavior). Do **not** paste the Next file `aurora/components/ui/clients-marquee-embed.tsx` into Framer — it imports JSON and path aliases and will throw bundler errors (e.g. `normalizePath`). This iframe keeps **`pointer-events: auto`** so each logo **link** works.
 
 **Sizing:** The page uses **`min-height: 100dvh`** inside the iframe so the block **fills the iframe height** Framer gives you; set the Code/embed frame height to match your section (often **200–280px** for one row; go taller if logos clip). Full width.
 
-The marquee embed sets **`data-embed-transparent`** on `html` (same as `/embed/aurora`) so **`html`/`body` stay transparent** and your Framer section color shows through the iframe.
+All **`/embed/*`** routes use the shared embed layout, which sets **`data-embed-transparent`** on `html` so **`html`/`body` stay transparent** and your Framer section color shows through the iframe (marquee, aurora, integration hero, etc.).
 
 ---
 
